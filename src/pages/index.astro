@@ -1,49 +1,293 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from "../components/BaseHead.astro";
+import Footer from "../components/Footer.astro";
+import Header from "../components/Header.astro";
+import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This template
-				serves as a lightweight, minimally-styled starting point for anyone looking to build a personal
-				website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your
-				<code>astro.config.mjs</code> file. You can customize your setup with
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like Tailwind,
-				React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>Edit this page in <code>src/pages/index.astro</code></li>
-				<li>Edit the site header items in <code>src/components/Header.astro</code></li>
-				<li>Add your name to the footer in <code>src/components/Footer.astro</code></li>
-				<li>Check out the included blog posts in <code>src/content/blog/</code></li>
-				<li>Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code></li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to
-				<a href="https://docs.astro.build/">read the docs</a>
-				or <a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a>
-				by <a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
+<html lang="pt-BR">
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
+
+  <body>
+    <Header />
+
+    <main>
+      <section class="home-hero">
+        <div class="home-hero__content">
+          <p class="kicker">Reliability & Asset Management</p>
+
+          <h1>Edson Lopes</h1>
+
+          <p class="hero-role">Consultor de Confiabilidade N1</p>
+
+          <p class="hero-lead">
+            Ajudo equipes de manutenção e confiabilidade a transformar dados
+            técnicos em decisões mais seguras sobre ativos industriais.
+          </p>
+
+          <p class="hero-copy">
+            Mais de 15 anos de experiência em operação, manutenção, PCM,
+            preditiva, confiabilidade e gestão de ativos — combinando vivência
+            industrial, análise de dados e software aplicado.
+          </p>
+
+          <div class="hero-actions">
+            <a href="/projetos" class="button primary">Ver projetos</a>
+            <a href="/curriculo" class="button secondary">Currículo</a>
+            <a href="/blog" class="button secondary">Notas técnicas</a>
+          </div>
+        </div>
+
+        <aside class="credibility-panel">
+          <p class="panel-label">Credenciais</p>
+
+          <div class="credential">
+            <strong>15+</strong>
+            <span>Anos de experiência industrial</span>
+          </div>
+
+          <div class="credential">
+            <strong>N1</strong>
+            <span>Consultor de Confiabilidade Compass</span>
+          </div>
+
+          <div class="credential">
+            <strong>14+</strong>
+            <span>Anos na The HEINEKEN Company</span>
+          </div>
+
+          <div class="credential">
+            <strong>Atual</strong>
+            <span>ArcelorMittal Pecém</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="proof-points">
+        <article>
+          <span>Operação</span>
+          <strong>Chão de fábrica</strong>
+          <p>
+            Vivência real em manufatura, utilidades, ETA/ETE e rotina
+            operacional.
+          </p>
+        </article>
+
+        <article>
+          <span>Manutenção</span>
+          <strong>Base técnica</strong>
+          <p>Experiência em elétrica, instrumentação e ativos industriais.</p>
+        </article>
+
+        <article>
+          <span>PCM</span>
+          <strong>Gestão da rotina</strong>
+          <p>Planejamento, programação, orçamento, sobressalentes e paradas.</p>
+        </article>
+
+        <article>
+          <span>Confiabilidade</span>
+          <strong>Decisão técnica</strong>
+          <p>RCM, FMEA, RAM, criticidade, preditiva e gestão de ativos.</p>
+        </article>
+      </section>
+
+      <section class="section expertise-section">
+        <div class="section-heading">
+          <p class="kicker">Especialização</p>
+          <h2>Confiabilidade aplicada à decisão.</h2>
+          <p>
+            Meu foco é transformar análises técnicas em critérios úteis para
+            priorização, manutenção, gestão de ativos e melhoria de desempenho
+            industrial.
+          </p>
+        </div>
+
+        <div class="expertise-showcase">
+          <article class="expertise-main">
+            <span>Core</span>
+            <h3>Reliability & Asset Decision Analytics</h3>
+            <p>
+              Conecto engenharia de confiabilidade, gestão de ativos e análise
+              de dados para apoiar decisões sobre ativos industriais.
+            </p>
+          </article>
+
+          <div class="expertise-list">
+            <article>
+              <span>01</span>
+              <h3>Reliability Engineering</h3>
+              <p>RAM, RBD, Weibull, FTA, LDA, RGA e sistemas reparáveis.</p>
+            </article>
+
+            <article>
+              <span>02</span>
+              <h3>Asset Management</h3>
+              <p>ISO 55000, criticidade, priorização e tomada de decisão.</p>
+            </article>
+
+            <article>
+              <span>03</span>
+              <h3>Decision Analytics</h3>
+              <p>MCDM, indicadores, análise de dados e suporte à decisão.</p>
+            </article>
+
+            <article>
+              <span>04</span>
+              <h3>PHM & Industrial AI</h3>
+              <p>Prognóstico, preditiva, sobrevivência e IA aplicada.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section projects-section">
+        <div class="section-heading">
+          <p class="kicker">Projetos</p>
+
+          <div>
+            <h2>Ferramentas para problemas reais de manutenção.</h2>
+            <p>
+              Projetos em desenvolvimento para aplicar confiabilidade, análise
+              de dados e software em problemas técnicos de manutenção
+              industrial.
+            </p>
+          </div>
+        </div>
+
+        <div class="project-grid refined">
+          <article class="project-card refined">
+            <div class="project-top">
+              <p>Decision Support</p>
+              <span class="project-status">PoC</span>
+            </div>
+
+            <h3>RCM Assistant</h3>
+
+            <p class="project-summary">
+              Assistente para estruturar análises de Manutenção Centrada na
+              Confiabilidade com apoio de IA.
+            </p>
+
+            <div class="project-meta">
+              <div>
+                <span>Problema</span>
+                <strong>Análises RCM demoradas e pouco padronizadas.</strong>
+              </div>
+
+              <div>
+                <span>Método</span>
+                <strong>LLM + estrutura RCM + base técnica.</strong>
+              </div>
+
+              <div>
+                <span>Valor</span>
+                <strong>Padronização e rastreabilidade da decisão.</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card refined">
+            <div class="project-top">
+              <p>Reliability Analytics</p>
+              <span class="project-status">Pesquisa</span>
+            </div>
+
+            <h3>Reliability Analytics Platform</h3>
+
+            <p class="project-summary">
+              Plataforma para modelagem de confiabilidade e suporte à decisão em
+              sistemas industriais.
+            </p>
+
+            <div class="project-meta">
+              <div>
+                <span>Problema</span>
+                <strong>Métricas RAM usadas sem contexto de sistema.</strong>
+              </div>
+
+              <div>
+                <span>Método</span>
+                <strong>RBD, Weibull, LDA, RGA e sistemas reparáveis.</strong>
+              </div>
+
+              <div>
+                <span>Valor</span>
+                <strong>Decisão baseada em confiabilidade sistêmica.</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card refined">
+            <div class="project-top">
+              <p>PHM</p>
+              <span class="project-status">Estudo</span>
+            </div>
+
+            <h3>PHM & Condition Monitoring</h3>
+
+            <p class="project-summary">
+              Estudos aplicados para usar dados de condição no prognóstico de
+              falhas.
+            </p>
+
+            <div class="project-meta">
+              <div>
+                <span>Problema</span>
+                <strong>Antecipar degradação de ativos industriais.</strong>
+              </div>
+
+              <div>
+                <span>Método</span>
+                <strong
+                  >Vibração, temperatura, corrente e modelos de risco.</strong
+                >
+              </div>
+
+              <div>
+                <span>Valor</span>
+                <strong>Suporte à manutenção preditiva e priorização.</strong>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section notes-section editorial">
+        <div>
+          <p class="kicker">Notas técnicas</p>
+
+          <h2>Conteúdo técnico como prova de autoridade.</h2>
+
+          <p>
+            Estudos e reflexões sobre RAM, RBD, PHM, análise de sobrevivência,
+            gestão de ativos, RCM e inteligência artificial aplicada à
+            manutenção.
+          </p>
+
+          <ul class="notes-list">
+            <li>Sistemas reparáveis em análise RAM</li>
+            <li>Tomada de decisão em gestão de ativos</li>
+            <li>PHM, Cox PH e manutenção preditiva</li>
+          </ul>
+        </div>
+
+        <a href="/blog" class="button primary">Ler notas técnicas</a>
+      </section>
+
+      <section class="section cta-section">
+        <h2>Vamos conversar?</h2>
+        <p>Disponível para projetos, consultorias e colaborações em confiabilidade e gestão de ativos.</p>
+        <div class="cta-actions">
+          <a href="mailto:p.s.edson2@gmail.com" class="button primary">Enviar e-mail</a>
+          <a href="https://www.linkedin.com/in/franciscoedsonlopessilva" class="button secondary" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+      </section>
+    </main>
+
+    <Footer />
+  </body>
 </html>
