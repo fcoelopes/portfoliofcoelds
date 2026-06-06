@@ -1,23 +1,19 @@
 ---
-
 title: "RCM com LLM — assistente para análise de manutenção centrada em confiabilidade"
 description: "Como um assistente de IA pode estruturar e padronizar análises de RCM em equipes de manutenção industrial."
-pubDate: 2026-06-03
+pubDate: "2026-06-03"
 type: "project"
-
 category: "Reliability Engineering"
 status: "PoC"
 progress: 30
 readingTime: "8 min"
-
 problem: "Análises RCM demoradas, dependentes de especialista sênior e difíceis de padronizar entre equipes."
 application: "Manutenção centrada em confiabilidade em plantas industriais, utilidades e manutenção pesada."
 method: "LLM + estrutura RCM + base técnica + fluxo orientado à decisão."
 value: "Padronização, rastreabilidade e apoio técnico à decisão de manutenção."
-
 stack: ["Python", "Streamlit", "Terraform", "Claude API"]
 tags: ["RCM", "LLM", "FMEA", "Confiabilidade", "Manutenção"]
-
+---
 
 ## Contexto
 
@@ -39,12 +35,12 @@ A equipe sabe que precisa discutir funções, falhas, modos de falha, efeitos e 
 
 Algumas dificuldades aparecem com frequência:
 
-* cada facilitador conduz a análise de um jeito;
-* os critérios de decisão nem sempre ficam explícitos;
-* os registros acabam espalhados em planilhas, atas e documentos;
-* a qualidade final depende demais da experiência individual;
-* análises antigas são difíceis de reutilizar;
-* o vínculo entre falha, consequência e tarefa nem sempre fica claro.
+- cada facilitador conduz a análise de um jeito;
+- os critérios de decisão nem sempre ficam explícitos;
+- os registros acabam espalhados em planilhas, atas e documentos;
+- a qualidade final depende demais da experiência individual;
+- análises antigas são difíceis de reutilizar;
+- o vínculo entre falha, consequência e tarefa nem sempre fica claro.
 
 Isso cria um problema importante para a gestão de ativos: a decisão de manutenção pode até estar correta, mas nem sempre está bem documentada, rastreável ou padronizada.
 
@@ -56,7 +52,7 @@ Mas LLMs podem ser úteis em outra camada: a camada de estruturação do racioc�
 
 Um assistente pode ajudar a organizar perguntas, manter consistência na terminologia, revisar lacunas, sugerir pontos de atenção e transformar discussões técnicas em registros mais claros.
 
-Nesse sentido, o LLM não entra como “oráculo técnico”, mas como apoio à condução da análise.
+Nesse sentido, o LLM não entra como oráculo técnico, mas como apoio à condução da análise.
 
 A proposta é que a decisão continue humana, mas o processo fique mais guiado, documentado e reutilizável.
 
@@ -91,52 +87,6 @@ Da mesma forma, o assistente pode sugerir que uma tarefa preditiva seja consider
 
 Em outras palavras: o assistente organiza o raciocínio; o especialista decide.
 
-## Arquitetura inicial
-
-A primeira versão do projeto está sendo pensada como uma prova de conceito simples, com foco na validação do fluxo.
-
-A arquitetura inicial considera uma interface em Streamlit, uma camada de prompts estruturados, uma base de conhecimento técnico e chamadas a um modelo de linguagem para apoiar a geração e revisão das respostas.
-
-O fluxo esperado é simples:
-
-1. o usuário informa o ativo e o contexto operacional;
-2. o sistema conduz perguntas de RCM em etapas;
-3. o LLM ajuda a estruturar respostas e apontar lacunas;
-4. o especialista revisa, corrige e valida;
-5. o sistema gera uma saída consolidada.
-
-A saída pode assumir a forma de relatório técnico, tabela estruturada ou base reutilizável para revisões futuras.
-
-## Exemplo de aplicação
-
-Imagine uma bomba centrífuga crítica em um sistema de utilidades industriais.
-
-Em uma análise tradicional, a equipe pode registrar funções, falhas e modos de falha em uma planilha. Porém, se o preenchimento for feito sem padronização, alguns modos de falha podem ficar vagos, efeitos podem ser descritos de forma incompleta e tarefas podem ser escolhidas sem justificativa clara.
-
-Com o assistente, o processo pode ser conduzido de forma mais controlada.
-
-Ao registrar uma falha funcional, o sistema pode perguntar quais funções deixaram de ser atendidas. Ao informar um modo de falha, pode solicitar o mecanismo físico envolvido. Ao propor uma tarefa, pode questionar se ela é tecnicamente aplicável, se existe intervalo viável e se a falha apresenta algum padrão detectável.
-
-Essa sequência ajuda a evitar respostas genéricas e melhora a rastreabilidade da decisão.
-
-## O que o projeto não é
-
-Este projeto não é um sistema mágico para gerar planos de manutenção automaticamente.
-
-Também não é uma tentativa de substituir normas, especialistas ou metodologias consolidadas.
-
-O projeto deve ser entendido como uma camada de apoio à aplicação prática da RCM. Ele busca melhorar a qualidade do registro, a consistência das análises e a clareza das justificativas.
-
-Algumas limitações precisam ser reconhecidas desde o início:
-
-* o modelo pode sugerir respostas tecnicamente plausíveis, mas incorretas;
-* a qualidade da saída depende da qualidade das informações fornecidas;
-* a validação de campo continua indispensável;
-* a análise precisa respeitar o contexto operacional real;
-* decisões críticas não devem ser tomadas sem revisão técnica.
-
-Essas limitações não invalidam o uso de LLMs. Apenas definem o lugar correto da ferramenta.
-
 ## Estado atual
 
 O projeto está em fase de prova de conceito.
@@ -145,28 +95,14 @@ Nesta etapa, o foco não é construir um produto completo, mas validar se o flux
 
 Os pontos já definidos são:
 
-* estrutura conceitual do fluxo RCM;
-* campos principais da análise;
-* papel do LLM como apoio, não decisor;
-* necessidade de rastreabilidade das respostas;
-* proposta inicial de interface;
-* stack preliminar com Python, Streamlit e API de LLM.
+- estrutura conceitual do fluxo RCM;
+- campos principais da análise;
+- papel do LLM como apoio, não decisor;
+- necessidade de rastreabilidade das respostas;
+- proposta inicial de interface;
+- stack preliminar com Python, Streamlit e API de LLM.
 
 O próximo passo é aplicar o fluxo em um ativo específico e comparar a experiência com uma análise feita de forma convencional.
-
-## Critérios de sucesso
-
-Para avaliar se a ideia faz sentido, alguns critérios precisam ser observados.
-
-O primeiro é a clareza. A análise gerada precisa ser mais compreensível do que uma planilha solta.
-
-O segundo é a rastreabilidade. Deve ser possível entender por que uma tarefa foi recomendada, rejeitada ou deixada para análise posterior.
-
-O terceiro é a consistência. O sistema deve ajudar a manter o vínculo entre função, falha funcional, modo de falha, efeito, consequência e tarefa.
-
-O quarto é a utilidade prática. O resultado precisa ajudar uma equipe real de manutenção, não apenas produzir um documento bonito.
-
-Se esses critérios não forem atendidos, o projeto vira apenas mais uma interface com IA. A proposta aqui é diferente: usar IA para melhorar a disciplina do processo técnico.
 
 ## Próximos passos
 
