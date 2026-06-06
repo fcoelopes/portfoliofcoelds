@@ -2,6 +2,78 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+
+const projects = [
+  {
+    category: "Reliability Engineering",
+    status: "PoC",
+    progress: 30,
+    title: "RCM com LLM",
+    objetivo:
+      "Assistente para estruturar análises de Manutenção Centrada na Confiabilidade com apoio de IA generativa.",
+    problema:
+      "Análises RCM demoradas, dependentes de especialista sênior e difíceis de padronizar entre equipes.",
+    aplicacao:
+      "Manutenção centrada em confiabilidade em plantas industriais, utilities e manutenção pesada.",
+    stack: ["Python", "Streamlit", "Terraform", "Claude API"],
+    links: [
+      { label: "Ver postagem do projeto", href: "/blog/projeto-rcm-llm" },
+    ],
+  },
+  {
+    category: "Reliability Analytics",
+    status: "Em desenvolvimento",
+    progress: 55,
+    title: "Análise RAM e RBD",
+    objetivo:
+      "Plataforma para modelagem de confiabilidade de sistemas reparáveis e não reparáveis, com suporte à decisão em paradas e gestão de ativos.",
+    problema:
+      "Falta de ferramentas acessíveis para análise RAM em contexto industrial sem dependência de software licenciado.",
+    aplicacao:
+      "Gestão de ativos, paradas programadas, análise de criticidade e confiabilidade de sistemas.",
+    stack: ["Python", "Streamlit", "Terraform", "Weibull", "Crow-AMSAA"],
+    links: [
+      { label: "Ver postagem do projeto", href: "/blog/projeto-ram-rbd-plataforma" },
+      { label: "RBD, FTA, LDA e RGA", href: "/blog/rbd-fta-lda-rga" },
+      { label: "Sistemas reparáveis", href: "/blog/sistemas-reparaveis-analise-ram" },
+    ],
+  },
+  {
+    category: "Predictive Maintenance",
+    status: "Pesquisa",
+    progress: 20,
+    title: "PHM e Vibração",
+    objetivo:
+      "Estimativa de vida útil remanescente (RUL) de equipamentos industriais a partir de dados de vibração, temperatura e corrente.",
+    problema:
+      "Diagnóstico tardio de falhas incipientes em equipamentos rotativos, gerando paradas não planejadas e custos elevados.",
+    aplicacao:
+      "Manutenção preditiva em compressores, bombas e motores elétricos em plantas industriais.",
+    stack: ["Python", "Streamlit", "Terraform", "Cox PH", "Scikit-survival"],
+    links: [
+      { label: "Ver postagem do projeto", href: "/blog/projeto-phm-vibracao-rul" },
+      { label: "PHM e Cox PH", href: "/blog/phm-cox-manutencao-preditiva" },
+    ],
+  },
+  {
+    category: "Gestão Industrial",
+    status: "Em produção",
+    progress: 90,
+    title: "Controle de EPIs",
+    objetivo:
+      "Software para controle, rastreabilidade e gestão de entrega de Equipamentos de Proteção Individual em ambientes industriais.",
+    problema:
+      "Controle manual e não rastreável de EPIs, sem histórico de entregas, validades ou conformidade com NR-6.",
+    aplicacao:
+      "SSMA, controle de inventário de segurança e conformidade normativa em plantas industriais.",
+    stack: ["Python", "Streamlit", "Terraform", "SQLite"],
+    links: [
+      { label: "Ver postagem do projeto", href: "/blog/projeto-controle-epis" },
+    ],
+  },
+];
+
+const circumference = 2 * Math.PI * 24;
 ---
 
 <!doctype html>
@@ -9,7 +81,7 @@ import Footer from "../components/Footer.astro";
   <head>
     <BaseHead
       title="Projetos | Edson Lopes"
-      description="Projetos técnicos de Edson Lopes."
+      description="Projetos técnicos em confiabilidade, análise RAM, PHM e gestão industrial."
     />
   </head>
 
@@ -18,49 +90,94 @@ import Footer from "../components/Footer.astro";
 
     <main>
       <section class="page-hero">
-        <p class="eyebrow">Portfólio técnico</p>
+        <p class="kicker">Portfólio técnico</p>
         <h1>Projetos</h1>
         <p>
-          Projetos em engenharia, manutenção, confiabilidade, dados e software.
+          Ferramentas e estudos em confiabilidade, análise de dados e software
+          aplicado à manutenção industrial.
         </p>
       </section>
 
-      <section class="cards two">
-        <article class="card">
-          <h2>RCM com LLM</h2>
-          <p>
-            Assistente para apoiar análises de Manutenção Centrada na
-            Confiabilidade.
-          </p>
-          <span>RCM · LLM · Confiabilidade</span>
-        </article>
+      <section class="pdc-list">
+        {
+          projects.map((p) => {
+            const offset = circumference * (1 - p.progress / 100);
+            return (
+              <article class="pdc">
+                <div class="pdc-header">
+                  <div class="pdc-badges">
+                    <span class="pdc-category">{p.category}</span>
+                    <span
+                      class={`pdc-status ${p.status === "Em produção" ? "status-prod" : p.status === "Em desenvolvimento" ? "status-dev" : p.status === "PoC" ? "status-poc" : "status-research"}`}
+                    >
+                      {p.status}
+                    </span>
+                  </div>
 
-        <article class="card">
-          <h2>Análise RAM e RBD</h2>
-          <p>
-            Modelagem de sistemas reparáveis e não reparáveis para estudos RAM.
-          </p>
-          <span>RAM · RBD · Weibull · Crow-AMSAA</span>
-        </article>
+                  <div class="pdc-progress">
+                    <svg class="pdc-ring" viewBox="0 0 60 60" aria-hidden="true">
+                      <circle
+                        cx="30"
+                        cy="30"
+                        r="24"
+                        stroke="rgba(245,158,11,0.15)"
+                        stroke-width="4"
+                        fill="none"
+                      />
+                      <circle
+                        cx="30"
+                        cy="30"
+                        r="24"
+                        stroke="var(--accent)"
+                        stroke-width="4"
+                        fill="none"
+                        stroke-dasharray={circumference}
+                        stroke-dashoffset={offset}
+                        stroke-linecap="round"
+                        transform="rotate(-90 30 30)"
+                      />
+                    </svg>
+                    <span class="pdc-pct">{p.progress}%</span>
+                  </div>
+                </div>
 
-        <article class="card">
-          <h2>PHM e Vibração</h2>
-          <p>
-            Uso de dados de vibração, temperatura e corrente em manutenção
-            preditiva.
-          </p>
-          <span>PHM · Python · Cox PH</span>
-        </article>
+                <div class="pdc-body">
+                  <h2>{p.title}</h2>
+                  <p class="pdc-objetivo">{p.objetivo}</p>
+                </div>
 
-        <article class="card">
-          <h2>Sistema de Controle de EPIs</h2>
-          <p>
-            Software para controle, rastreabilidade e gestão de entrega de EPIs.
-          </p>
-          <span>Python · Gestão · EPI</span>
-        </article>
+                <dl class="pdc-meta">
+                  <div>
+                    <dt>Problema</dt>
+                    <dd>{p.problema}</dd>
+                  </div>
+                  <div>
+                    <dt>Aplicação industrial</dt>
+                    <dd>{p.aplicacao}</dd>
+                  </div>
+                  <div>
+                    <dt>Stack</dt>
+                    <dd class="pdc-stack">
+                      {p.stack.map((s) => (
+                        <span>{s}</span>
+                      ))}
+                    </dd>
+                  </div>
+                </dl>
 
-        {/* Projetos fora do escopo de confiabilidade/dados industriais — removidos do portfólio principal */}
+                {p.links.length > 0 && (
+                  <div class="pdc-links">
+                    {p.links.map((l) => (
+                      <a href={l.href} class="pdc-link">
+                        → {l.label}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </article>
+            );
+          })
+        }
       </section>
     </main>
 
