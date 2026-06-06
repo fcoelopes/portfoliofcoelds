@@ -230,12 +230,37 @@ h3 {
   max-width: 640px;
 }
 
+/* Hero photo */
+
+.credibility-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: start;
+  margin-top: 2rem;
+}
+
+.hero-photo {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 2px solid var(--accent);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.15);
+  object-fit: cover;
+  object-position: top center;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -18px;
+}
+
 /* Credentials */
 
 .credibility-panel {
+  position: relative;
+  z-index: 2;
   border: 1px solid var(--border);
   border-radius: 1.6rem;
-  padding: 1.5rem;
+  padding: calc(18px + 1.5rem) 1.5rem 1.5rem;
   background:
     radial-gradient(
       circle at top right,

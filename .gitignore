@@ -20,5 +20,8 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# personal assets
+public/Foto.JPG
+
 # jetbrains setting folder
 .idea/
