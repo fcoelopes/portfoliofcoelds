@@ -4,6 +4,7 @@ description: "Como dados de condição podem entrar em modelos de risco para apo
 pubDate: 2026-06-05
 heroImage: "../../assets/blog-placeholder-3.jpg"
 type: "note"
+draft: true
 ---
 
 # PHM, Cox PH e manutenção preditiva

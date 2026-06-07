@@ -20,6 +20,7 @@ const blog = defineCollection({
       readingTime: z.string().optional(),
 
       type: z.enum(["note", "project"]).default("note"),
+      draft: z.boolean().default(false),
 
       category: z.string().optional(),
       status: z.string().optional(),

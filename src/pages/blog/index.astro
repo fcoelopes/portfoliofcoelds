@@ -9,7 +9,8 @@ import Header from "../../components/Header.astro";
 type BlogEntry = CollectionEntry<"blog">;
 
 const posts = (await getCollection("blog"))
-  .filter((post) => post.data.type !== "project")
+  .filter((post) => post.data.type === "note")
+  .filter((post) => !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const getPostHref = (post: BlogEntry) =>
