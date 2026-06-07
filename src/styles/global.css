@@ -39,12 +39,12 @@ body {
   background:
     radial-gradient(
       circle at top left,
-      rgba(245, 158, 11,0.15),
+      rgba(245, 158, 11, 0.15),
       transparent 30rem
     ),
     radial-gradient(
       circle at top right,
-      rgba(249, 115, 22,0.08),
+      rgba(249, 115, 22, 0.08),
       transparent 26rem
     ),
     var(--bg);
@@ -158,7 +158,7 @@ h3 {
 .button:hover,
 .btn:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 158, 11,0.45);
+  border-color: rgba(245, 158, 11, 0.45);
 }
 
 .button.primary,
@@ -253,7 +253,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
@@ -265,7 +265,7 @@ h3 {
 
 .credibility-panel:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 158, 11,0.35);
+  border-color: rgba(245, 158, 11, 0.35);
 }
 
 .panel-label {
@@ -366,7 +366,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.12),
+      rgba(245, 158, 11, 0.12),
       transparent 42%
     ),
     var(--surface-2);
@@ -422,7 +422,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     var(--surface-2);
@@ -462,7 +462,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.08),
+      rgba(245, 158, 11, 0.08),
       transparent 44%
     ),
     var(--surface);
@@ -477,7 +477,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.12),
+      rgba(245, 158, 11, 0.12),
       transparent 44%
     ),
     var(--surface-2);
@@ -564,11 +564,11 @@ h3 {
 
 .project-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 158, 11,0.35);
+  border-color: rgba(245, 158, 11, 0.35);
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.12),
+      rgba(245, 158, 11, 0.12),
       transparent 42%
     ),
     var(--surface-2);
@@ -593,7 +593,7 @@ h3 {
 
 .project-status {
   color: var(--accent);
-  border: 1px solid rgba(245, 158, 11,0.35);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   border-radius: 999px;
   padding: 0.25rem 0.6rem;
   font-size: 0.72rem;
@@ -792,7 +792,6 @@ h3 {
   overflow: hidden;
 }
 
-
 .pdc-body h2 {
   max-width: 640px;
   margin: 0 0 0.75rem;
@@ -952,7 +951,7 @@ h3 {
 
 .card:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 158, 11,0.35);
+  border-color: rgba(245, 158, 11, 0.35);
 }
 
 .resume {
@@ -1030,7 +1029,7 @@ h3 {
   }
 
   .nav a.active {
-    background: rgba(245, 158, 11,0.1);
+    background: rgba(245, 158, 11, 0.1);
   }
 
   .site-footer {
@@ -1103,7 +1102,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent),
@@ -1115,7 +1114,7 @@ h3 {
 
 .resume-panel:hover {
   transform: translateY(-2px);
-  border-color: rgba(245, 158, 11,0.35);
+  border-color: rgba(245, 158, 11, 0.35);
 }
 
 .resume-fact {
@@ -1165,7 +1164,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     var(--surface-2);
@@ -1175,7 +1174,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.12),
+      rgba(245, 158, 11, 0.12),
       transparent 42%
     ),
     var(--surface);
@@ -1230,7 +1229,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     var(--surface-2);
@@ -1283,7 +1282,7 @@ h3 {
   background:
     radial-gradient(
       circle at top right,
-      rgba(245, 158, 11,0.1),
+      rgba(245, 158, 11, 0.1),
       transparent 42%
     ),
     var(--surface-2);
@@ -1358,5 +1357,16 @@ h3 {
   .resume-capabilities article,
   .education-grid article {
     min-height: auto;
+  }
+  .pdc-link--disabled {
+    color: var(--muted);
+    cursor: default;
+    opacity: 0.65;
+    text-decoration: none;
+  }
+
+  .pdc-link--disabled:hover {
+    color: var(--muted);
+    text-decoration: none;
   }
 }

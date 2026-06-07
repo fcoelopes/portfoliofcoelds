@@ -2,6 +2,7 @@
 import BaseHead from "../components/BaseHead.astro";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
+import { getCollection } from "astro:content";
 
 const projects = [
   {
@@ -33,9 +34,15 @@ const projects = [
       "Gestão de ativos, paradas programadas, análise de criticidade e confiabilidade de sistemas.",
     stack: ["Python", "Streamlit", "Terraform", "Weibull", "Crow-AMSAA"],
     links: [
-      { label: "Ver postagem do projeto", href: "/blog/projeto-ram-rbd-plataforma" },
+      {
+        label: "Ver postagem do projeto",
+        href: "/blog/projeto-ram-rbd-plataforma",
+      },
       { label: "RBD, FTA, LDA e RGA", href: "/blog/rbd-fta-lda-rga" },
-      { label: "Sistemas reparáveis", href: "/blog/sistemas-reparaveis-analise-ram" },
+      {
+        label: "Sistemas reparáveis",
+        href: "/blog/sistemas-reparaveis-analise-ram",
+      },
     ],
   },
   {
@@ -51,7 +58,10 @@ const projects = [
       "Manutenção preditiva em compressores, bombas e motores elétricos em plantas industriais.",
     stack: ["Python", "Streamlit", "Terraform", "Cox PH", "Scikit-survival"],
     links: [
-      { label: "Ver postagem do projeto", href: "/blog/projeto-phm-vibracao-rul" },
+      {
+        label: "Ver postagem do projeto",
+        href: "/blog/projeto-phm-vibracao-rul",
+      },
       { label: "PHM e Cox PH", href: "/blog/phm-cox-manutencao-preditiva" },
     ],
   },
@@ -72,6 +82,19 @@ const projects = [
     ],
   },
 ];
+
+const publishedPosts = (await getCollection("blog")).filter(
+  (post) => !post.data.draft,
+);
+
+const publishedPostHrefs = new Set(
+  publishedPosts.map((post) => `/blog/${post.id.replace(/\.mdx?$/, "")}`),
+);
+
+const normalizeHref = (href: string) => href.replace(/\/$/, "");
+
+const isPublishedHref = (href: string) =>
+  publishedPostHrefs.has(normalizeHref(href));
 
 const circumference = 2 * Math.PI * 24;
 ---
@@ -115,7 +138,11 @@ const circumference = 2 * Math.PI * 24;
                   </div>
 
                   <div class="pdc-progress">
-                    <svg class="pdc-ring" viewBox="0 0 60 60" aria-hidden="true">
+                    <svg
+                      class="pdc-ring"
+                      viewBox="0 0 60 60"
+                      aria-hidden="true"
+                    >
                       <circle
                         cx="30"
                         cy="30"
@@ -167,11 +194,20 @@ const circumference = 2 * Math.PI * 24;
 
                 {p.links.length > 0 && (
                   <div class="pdc-links">
-                    {p.links.map((l) => (
-                      <a href={l.href} class="pdc-link">
-                        → {l.label}
-                      </a>
-                    ))}
+                    {p.links.map((l) =>
+                      isPublishedHref(l.href) ? (
+                        <a href={l.href} class="pdc-link">
+                          → {l.label}
+                        </a>
+                      ) : (
+                        <span
+                          class="pdc-link pdc-link--disabled"
+                          aria-disabled="true"
+                        >
+                          → Estudo técnico em preparação
+                        </span>
+                      ),
+                    )}
                   </div>
                 )}
               </article>

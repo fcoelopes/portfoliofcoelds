@@ -136,12 +136,11 @@ const isProject = type === "project";
         padding: 2rem;
         border: 1px solid var(--border);
         border-radius: 1.25rem;
-        background:
-          linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.05),
-            rgba(255, 255, 255, 0.018)
-          );
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.05),
+          rgba(255, 255, 255, 0.018)
+        );
       }
 
       .project-kicker {
@@ -292,12 +291,7 @@ const isProject = type === "project";
         margin: 0 auto;
         color: #c8d3e0;
         font-family:
-          ui-serif,
-          Georgia,
-          Cambria,
-          "Times New Roman",
-          Times,
-          serif;
+          ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
         font-size: 1.16rem;
         line-height: 1.85;
         letter-spacing: 0;
@@ -688,7 +682,7 @@ const isProject = type === "project";
                   </div>
 
                   <div class="project-progress-track">
-                    <span style={`width: ${progress}%`}></span>
+                    <span style={`width: ${progress}%`} />
                   </div>
                 </div>
               )}
@@ -702,7 +696,9 @@ const isProject = type === "project";
 
               <h1>{title}</h1>
 
-              {description && <p class="editorial-description">{description}</p>}
+              {description && (
+                <p class="editorial-description">{description}</p>
+              )}
 
               <div class="editorial-meta">
                 <FormattedDate date={pubDate} />
@@ -726,7 +722,9 @@ const isProject = type === "project";
 
               {tags && tags.length > 1 && (
                 <ul class="post-tags" aria-label="Tags do artigo">
-                  {tags.slice(1).map((tag) => <li>{tag}</li>)}
+                  {tags.slice(1).map((tag) => (
+                    <li>{tag}</li>
+                  ))}
                 </ul>
               )}
             </header>

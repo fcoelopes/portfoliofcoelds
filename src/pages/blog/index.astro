@@ -8,9 +8,8 @@ import Header from "../../components/Header.astro";
 
 type BlogEntry = CollectionEntry<"blog">;
 
-const posts = (await getCollection("blog"))
-  .filter((post) => post.data.type === "note")
-  .filter((post) => !post.data.draft)
+const posts: BlogEntry[] = (await getCollection("blog"))
+  .filter((post) => post.data.type === "note" && !post.data.draft)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const getPostHref = (post: BlogEntry) =>
@@ -182,14 +181,16 @@ const getPostHref = (post: BlogEntry) =>
         posts.length > 0 ? (
           <section aria-label="Lista de notas técnicas">
             <ul class="notes-list">
-              {posts.map((post) => (
+              {posts.map((post: BlogEntry) => (
                 <li>
                   <a class="note-card" href={getPostHref(post)}>
                     <div class="note-meta">
                       <FormattedDate date={post.data.pubDate} />
 
                       {post.data.readingTime && (
-                        <span class="reading-time">{post.data.readingTime}</span>
+                        <span class="reading-time">
+                          {post.data.readingTime}
+                        </span>
                       )}
                     </div>
 
@@ -199,7 +200,7 @@ const getPostHref = (post: BlogEntry) =>
 
                     {post.data.tags && post.data.tags.length > 0 && (
                       <div class="note-tags">
-                        {post.data.tags.slice(0, 4).map((tag) => (
+                        {post.data.tags.slice(0, 4).map((tag: string) => (
                           <span>{tag}</span>
                         ))}
                       </div>
@@ -210,9 +211,7 @@ const getPostHref = (post: BlogEntry) =>
             </ul>
           </section>
         ) : (
-          <p class="empty-state">
-            Nenhuma nota técnica publicada ainda.
-          </p>
+          <p class="empty-state">Nenhuma nota técnica publicada ainda.</p>
         )
       }
     </main>

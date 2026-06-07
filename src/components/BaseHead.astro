@@ -14,10 +14,11 @@ interface Props {
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
-const { title, description, image = '/og-default.png' } = Astro.props;
-const ogImageUrl = typeof image === 'string'
-  ? new URL(image, Astro.site)
-  : new URL(image.src, Astro.url);
+const { title, description, image = "/og-default.png" } = Astro.props;
+const ogImageUrl =
+  typeof image === "string"
+    ? new URL(image, Astro.site)
+    : new URL(image.src, Astro.url);
 ---
 
 <!-- Global Metadata -->

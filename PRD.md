@@ -1,4 +1,5 @@
 # PRD — Adequação do Site fcoelds.dev.br
+
 > Product Requirements Document para uso com Claude Code
 
 **Versão:** 1.0
@@ -15,6 +16,7 @@ O site `fcoelds.dev.br` foi construído com **Astro v6.4.4** e está publicado, 
 Este PRD define o escopo completo do trabalho, os critérios de aceitação por tarefa e a ordem de execução recomendada para o Claude Code.
 
 ### Arquitetura atual
+
 ```
 src/
 ├── pages/
@@ -34,6 +36,7 @@ public/
 ```
 
 ### Stack de deploy
+
 - Astro v6.4.4
 - Deploy: verificar `package.json` e configuração de CI
 
@@ -50,6 +53,7 @@ public/
 **Arquivo:** `astro.config.mjs`
 
 **Mudança:**
+
 ```js
 // ANTES
 export default defineConfig({
@@ -63,6 +67,7 @@ export default defineConfig({
 ```
 
 **Critério de aceitação:**
+
 - [ ] `astro.config.mjs` contém `site: 'https://fcoelds.dev.br'`
 - [ ] Após build, `view-source` de qualquer página mostra `<link rel="canonical" href="https://fcoelds.dev.br/...">` com o domínio correto
 - [ ] Meta `og:url` e `twitter:url` refletem o domínio correto em todas as páginas
@@ -74,16 +79,19 @@ export default defineConfig({
 **Problema:** Todas as páginas usam `blog-placeholder-1.Bx0Zcyzv.jpg` como imagem Open Graph — thumbnail genérica do template Astro.
 
 **O que criar:**
+
 - Imagem `og-default.png` com dimensões **1200 × 630px**
 - Conteúdo: nome "Edson Lopes", título "Confiabilidade · Gestão de Ativos · Dados", domínio `fcoelds.dev.br`
 - Paleta: pode usar tons escuros industriais (grafite/carvão) com acento em âmbar ou ciano
 - Salvar em `public/og-default.png`
 
 **Atualização nos layouts:**
+
 - Localizar o layout principal (provavelmente `src/layouts/BaseLayout.astro` ou similar)
 - Substituir a referência à imagem placeholder pela nova OG
 
 **Critério de aceitação:**
+
 - [ ] Arquivo `public/og-default.png` existe com 1200×630px
 - [ ] Meta `og:image` e `twitter:image` em todas as páginas apontam para `/og-default.png`
 - [ ] Nenhuma referência a `blog-placeholder` permanece nos layouts globais
@@ -133,6 +141,7 @@ Baseado no Ceará, Brasil.
 ```
 
 **Critério de aceitação:**
+
 - [ ] Página `/about` não contém nenhuma ocorrência de "lorem ipsum" ou "Lorem ipsum"
 - [ ] Meta-description da página é diferente de "Lorem ipsum dolor sit amet"
 - [ ] Conteúdo real está publicado
@@ -146,10 +155,12 @@ Baseado no Ceará, Brasil.
 **Problema:** A página `/projetos` lista projetos genéricos que diluem o posicionamento especialista.
 
 **Projetos a remover ou mover para seção separada:**
+
 - "Conversor de Moedas em Java" → remover da página principal
 - "Plataforma para Ar-condicionado" → remover ou mover para seção "experimentos"
 
 **Critério de aceitação:**
+
 - [ ] Página `/projetos` lista apenas projetos de confiabilidade, dados industriais e software aplicado
 - [ ] Conversor de moedas e plataforma de ar-condicionado não aparecem no portfólio principal
 
@@ -162,6 +173,7 @@ Baseado no Ceará, Brasil.
 **Instrução:** Substituir a imagem placeholder por foto real quando disponível. Enquanto não houver foto, **remover** o elemento `<img>` da página `/about` em vez de manter o placeholder visível.
 
 **Critério de aceitação:**
+
 - [ ] Nenhuma imagem `blog-placeholder-about` aparece em produção
 - [ ] Se foto real disponível: imagem renderiza com alt-text adequado
 
@@ -179,6 +191,7 @@ Administração — UNIFOR · Em andamento
 ```
 
 **Critério de aceitação:**
+
 - [ ] Cada formação em andamento tem indicação clara de status
 - [ ] Não aparece como concluída sem ser
 
@@ -189,10 +202,12 @@ Administração — UNIFOR · Em andamento
 **Problema:** Não há forma clara de um visitante qualificado iniciar contato ou entender o que pode contratar.
 
 **O que adicionar:**
+
 - Na homepage, após a seção de projetos: bloco simples com texto tipo _"Disponível para projetos e consultorias"_ + botão de e-mail ou link para LinkedIn
 - O e-mail já existe no rodapé, mas precisa de visibilidade maior no fluxo principal
 
 **Critério de aceitação:**
+
 - [ ] Existe pelo menos um CTA visível na homepage acima do fold de rodapé
 - [ ] CTA leva a e-mail ou LinkedIn com um clique
 
@@ -226,14 +241,14 @@ TASK-08..12   (Onda 3, futuro)
 
 ## 4. Restrições e decisões de design
 
-| Decisão | Regra |
-|---|---|
-| Framework | Manter Astro — não migrar |
-| Conteúdo | Não alterar copy existente além do especificado — apenas corrigir problemas identificados |
-| Lorem ipsum | Zero tolerância — nenhum placeholder em produção |
-| Imagens | Não usar imagens de stock genéricas para substituir placeholders — criar ou remover |
-| Projetos | Não criar novos cards de projeto — apenas remover os fora de escopo |
-| SEO | A correção do `site:` no Astro config é suficiente para resolver todos os canonicals — não hackear meta-tags individualmente |
+| Decisão     | Regra                                                                                                                        |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Framework   | Manter Astro — não migrar                                                                                                    |
+| Conteúdo    | Não alterar copy existente além do especificado — apenas corrigir problemas identificados                                    |
+| Lorem ipsum | Zero tolerância — nenhum placeholder em produção                                                                             |
+| Imagens     | Não usar imagens de stock genéricas para substituir placeholders — criar ou remover                                          |
+| Projetos    | Não criar novos cards de projeto — apenas remover os fora de escopo                                                          |
+| SEO         | A correção do `site:` no Astro config é suficiente para resolver todos os canonicals — não hackear meta-tags individualmente |
 
 ---
 

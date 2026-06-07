@@ -25,17 +25,20 @@ Este guia detalha como executar cada TASK do `PRD.md`. Sempre leia a task comple
 ## TASK-01 — Corrigir domínio canônico
 
 ### Localizar o arquivo
+
 ```bash
 cat astro.config.mjs
 ```
 
 ### Diff esperado
+
 ```diff
 - site: 'https://example.com',
 + site: 'https://fcoelds.dev.br',
 ```
 
 ### Verificação pós-edição
+
 ```bash
 npm run build 2>&1 | tail -5
 
@@ -51,6 +54,7 @@ grep -r "example.com" dist/ | grep -v ".map" | wc -l
 ```
 
 ### ✅ Critérios de aceitação
+
 - [ ] `astro.config.mjs` contém `site: 'https://fcoelds.dev.br'`
 - [ ] Build passa sem erros
 - [ ] `grep "example.com" dist/` retorna 0 resultados (excluindo sourcemaps)
@@ -61,6 +65,7 @@ grep -r "example.com" dist/ | grep -v ".map" | wc -l
 ## TASK-02 — Imagem OG real
 
 ### Estratégia
+
 Como Claude Code não gera imagens, a abordagem é:
 
 **Opção A (preferida):** Criar um componente HTML/SVG que sirva como OG placeholder com branding real, convertendo para PNG via script.
@@ -68,17 +73,20 @@ Como Claude Code não gera imagens, a abordagem é:
 **Opção B (imediata):** Atualizar o layout para referenciar uma imagem que o usuário vai fornecer, e remover a referência ao placeholder do template.
 
 ### Localizar referência atual
+
 ```bash
 grep -r "blog-placeholder" src/
 ```
 
 ### Localizar o layout principal
+
 ```bash
 ls src/layouts/
 cat src/layouts/BaseLayout.astro  # ou o layout encontrado
 ```
 
 ### Mudança no layout
+
 Substituir a referência hardcoded ao placeholder por uma variável com fallback:
 
 ```astro
@@ -86,10 +94,11 @@ Substituir a referência hardcoded ao placeholder por uma variável com fallback
 <meta property="og:image" content="/_astro/blog-placeholder-1.Bx0Zcyzv.jpg" />
 
 <!-- DEPOIS -->
-<meta property="og:image" content={ogImage ?? '/og-default.png'} />
+<meta property="og:image" content={ogImage ?? "/og-default.png"} />
 ```
 
 ### Criar arquivo placeholder de OG
+
 Se o usuário ainda não tiver a imagem, criar um arquivo `public/og-default.png` vazio como marcador e avisar:
 
 ```bash
@@ -101,6 +110,7 @@ Se o usuário ainda não tiver a imagem, criar um arquivo `public/og-default.png
 ```
 
 ### ✅ Critérios de aceitação
+
 - [ ] Nenhuma referência a `blog-placeholder` em `src/layouts/`
 - [ ] Meta `og:image` aponta para `/og-default.png` ou variável controlada
 - [ ] Usuário ciente de que precisa criar a imagem com 1200×630px
@@ -110,20 +120,24 @@ Se o usuário ainda não tiver a imagem, criar um arquivo `public/og-default.png
 ## TASK-03 — Substituir lorem ipsum no /about
 
 ### Localizar arquivo
+
 ```bash
 # Procurar por lorem ipsum em todo o src/
 grep -rl "lorem ipsum" src/ --include="*.md" --include="*.astro" --include="*.mdx"
 ```
 
 ### Verificar frontmatter atual
+
 ```bash
 cat src/pages/about.md  # ou o arquivo encontrado
 ```
 
 ### Conteúdo a inserir
+
 Substituir **todo o conteúdo** (frontmatter + body) pelo seguinte, preservando o formato do arquivo (`.md` ou `.astro`):
 
 **Para arquivo `.md`:**
+
 ```markdown
 ---
 title: "Sobre"
@@ -161,13 +175,16 @@ Baseado no Ceará, Brasil.
 ```
 
 ### Remover imagem placeholder
+
 ```bash
 # Verificar se há referência à imagem placeholder no about
 grep -r "blog-placeholder-about" src/
 ```
+
 Se encontrada, remover o elemento `<img>` — não substituir por outro placeholder.
 
 ### ✅ Critérios de aceitação
+
 - [ ] `grep -r "lorem ipsum" src/` retorna 0 resultados
 - [ ] Meta-description da página about ≠ "Lorem ipsum dolor sit amet"
 - [ ] Página renderiza com conteúdo real em `npm run preview`
@@ -178,16 +195,19 @@ Se encontrada, remover o elemento `<img>` — não substituir por outro placehol
 ## TASK-04 — Limpar portfólio
 
 ### Localizar projetos a remover
+
 ```bash
 grep -n "Conversor\|Ar-condicionado\|Java\|moedas" src/pages/projetos.astro
 ```
 
 ### Estratégia de remoção
+
 1. Comentar os blocos dos projetos genéricos (não deletar)
 2. Mostrar diff ao usuário antes de aplicar
 3. Perguntar se prefere deletar ou apenas ocultar
 
 ### ✅ Critérios de aceitação
+
 - [ ] "Conversor de Moedas" não aparece na página `/projetos` em produção
 - [ ] "Plataforma para Ar-condicionado" não aparece na página `/projetos` em produção
 - [ ] Projetos restantes são todos de confiabilidade/dados industriais/software aplicado
@@ -197,18 +217,22 @@ grep -n "Conversor\|Ar-condicionado\|Java\|moedas" src/pages/projetos.astro
 ## TASK-06 — Status da formação no currículo
 
 ### Localizar
+
 ```bash
 grep -n "UNIFOR\|UNINTER\|Administração\|Ciência de Dados" src/pages/curriculo.astro
 ```
 
 ### Mudança esperada
+
 Adicionar indicação de status após cada graduação em andamento:
+
 ```
 Ciência de Dados — UNINTER · Em andamento
 Administração — UNIFOR · Em andamento
 ```
 
 ### ✅ Critérios de aceitação
+
 - [ ] Graduações em andamento têm indicação explícita de status
 
 ---
@@ -216,26 +240,34 @@ Administração — UNIFOR · Em andamento
 ## TASK-07 — CTA de contato
 
 ### Localizar seção de contato na homepage
+
 ```bash
 grep -n "contato\|email\|linkedin\|CTA\|contact" src/pages/index.astro -i
 ```
 
 ### O que adicionar
+
 Bloco simples após a seção de projetos na homepage:
 
 ```astro
 <!-- Seção CTA -->
 <section>
   <h2>Vamos conversar?</h2>
-  <p>Disponível para projetos, consultorias e colaborações em confiabilidade e gestão de ativos.</p>
+  <p>
+    Disponível para projetos, consultorias e colaborações em confiabilidade e
+    gestão de ativos.
+  </p>
   <a href="mailto:contato@fcoelds.dev.br">Enviar e-mail</a>
-  <a href="https://www.linkedin.com/in/franciscoedsonlopessilva" target="_blank">LinkedIn</a>
+  <a href="https://www.linkedin.com/in/franciscoedsonlopessilva" target="_blank"
+    >LinkedIn</a
+  >
 </section>
 ```
 
 Adaptar ao padrão de estilo e componentes já existentes no projeto.
 
 ### ✅ Critérios de aceitação
+
 - [ ] Existe pelo menos um CTA visível na homepage antes do rodapé
 - [ ] CTA tem link funcional para e-mail ou LinkedIn
 - [ ] Estilo é consistente com o restante da página
@@ -244,10 +276,10 @@ Adaptar ao padrão de estilo e componentes já existentes no projeto.
 
 ## Erros comuns a evitar
 
-| Erro | Correção |
-|---|---|
-| Editar `<head>` de cada página individualmente para SEO | Editar apenas `astro.config.mjs` — o Astro propaga automaticamente |
+| Erro                                                       | Correção                                                                                                   |
+| ---------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| Editar `<head>` de cada página individualmente para SEO    | Editar apenas `astro.config.mjs` — o Astro propaga automaticamente                                         |
 | Usar `href="mailto:..."` com e-mail ofuscado do Cloudflare | Verificar se o e-mail no HTML é texto puro ou hash Cloudflare; usar o e-mail real `contato@fcoelds.dev.br` |
-| Deletar projetos sem confirmar | Comentar primeiro, confirmar com usuário antes de deletar |
-| Assumir estrutura de arquivos sem explorar | Sempre `ls src/pages/` e `ls src/layouts/` antes de editar |
-| Criar nova imagem OG via código quando não é possível | Informar usuário e preparar o layout para receber a imagem quando ela for criada |
+| Deletar projetos sem confirmar                             | Comentar primeiro, confirmar com usuário antes de deletar                                                  |
+| Assumir estrutura de arquivos sem explorar                 | Sempre `ls src/pages/` e `ls src/layouts/` antes de editar                                                 |
+| Criar nova imagem OG via código quando não é possível      | Informar usuário e preparar o layout para receber a imagem quando ela for criada                           |
