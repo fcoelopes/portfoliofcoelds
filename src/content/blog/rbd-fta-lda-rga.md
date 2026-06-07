@@ -6,6 +6,18 @@ heroImage: "../../assets/blog-placeholder-2.jpg"
 type: "note"
 ---
 
-# RBD, FTA, LDA e RGA
+## RBD, FTA, LDA e RGA
+
+### Disponibilidade
+
+A disponibilidade inerente pode ser expressa por:
+
+$$
+A = \frac{MTBF}{MTBF + MTTR}
+$$
+
+### Confiabilidade
+
+A confiabilidade exponencial é dada por $R(t) = e^{-\lambda t}$.
 
 Texto inicial do artigo.

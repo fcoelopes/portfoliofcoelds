@@ -32,7 +32,9 @@ const isProject = type === "project";
 
     <style>
       .post-wrap {
-        width: min(760px, calc(100% - 2rem));
+        --article-width: 820px;
+
+        width: min(var(--article-width), calc(100% - 2rem));
         margin: 0 auto;
         padding: 4.5rem 0 6rem;
       }
@@ -42,7 +44,7 @@ const isProject = type === "project";
       }
 
       /* ─────────────────────────────
-         Header editorial padrão
+         Header editorial das notas
       ───────────────────────────── */
 
       .editorial-header {
@@ -75,9 +77,17 @@ const isProject = type === "project";
       .editorial-header h1 {
         margin: 0;
         color: var(--text);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         font-size: clamp(2.8rem, 7vw, 5rem);
-        line-height: 0.98;
-        letter-spacing: -0.065em;
+        font-weight: 850;
+        line-height: 1.02;
+        letter-spacing: -0.055em;
       }
 
       .editorial-description {
@@ -121,7 +131,7 @@ const isProject = type === "project";
 
       .project-post-header {
         width: min(900px, calc(100vw - 2rem));
-        margin: 0 50% 3rem;
+        margin: 0 50% 5rem;
         transform: translateX(-50%);
         padding: 2rem;
         border: 1px solid var(--border);
@@ -161,9 +171,17 @@ const isProject = type === "project";
         max-width: 900px;
         margin: 0;
         color: var(--text);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         font-size: clamp(2.5rem, 6vw, 5rem);
-        line-height: 0.98;
-        letter-spacing: -0.065em;
+        font-weight: 850;
+        line-height: 1.02;
+        letter-spacing: -0.055em;
       }
 
       .project-lead {
@@ -222,9 +240,8 @@ const isProject = type === "project";
       ───────────────────────────── */
 
       .post-hero {
-        width: min(960px, calc(100vw - 2rem));
-        margin: 0 50% 3rem;
-        transform: translateX(-50%);
+        width: 100%;
+        margin: 0 0 3rem;
         border-radius: 1rem;
         overflow: hidden;
         border: 1px solid var(--border);
@@ -241,7 +258,7 @@ const isProject = type === "project";
       ───────────────────────────── */
 
       .post-summary {
-        margin: 0 0 3rem;
+        margin: 0 0 4rem;
         padding: 1.25rem 1.5rem;
         border: 1px solid var(--border);
         border-left: 4px solid var(--accent);
@@ -267,52 +284,84 @@ const isProject = type === "project";
       }
 
       /* ─────────────────────────────
-         Prose estilo Medium
+         Corpo do artigo
       ───────────────────────────── */
 
       .prose {
         max-width: 720px;
         margin: 0 auto;
-        color: #d4e1f1;
-        font-size: 1.18rem;
-        line-height: 1.9;
+        color: #c8d3e0;
+        font-family:
+          ui-serif,
+          Georgia,
+          Cambria,
+          "Times New Roman",
+          Times,
+          serif;
+        font-size: 1.16rem;
+        line-height: 1.85;
+        letter-spacing: 0;
         overflow-wrap: break-word;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
       }
 
       .prose > *:first-child {
         margin-top: 0;
       }
 
-      .prose p {
-        margin: 0 0 1.8rem;
-        color: #c8d3e0;
-        font-size: 1.18rem;
-        line-height: 1.9;
+      .prose > hr:first-child {
+        display: none;
+      }
+
+      .prose h1,
+      .prose h2,
+      .prose h3,
+      .prose h4,
+      .prose h5,
+      .prose h6 {
+        margin-inline: 0;
+        padding: 0;
+        border: 0;
+        color: #f8fafc;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        font-weight: 800;
+        line-height: 1.25;
+        letter-spacing: -0.015em;
+        text-shadow: none;
+        transform: none;
       }
 
       .prose h2 {
         margin: 4rem 0 1.25rem;
-        padding: 0;
-        border-left: 0;
-        color: var(--text);
-        font-size: clamp(2rem, 4vw, 2.8rem);
-        line-height: 1.08;
-        letter-spacing: -0.055em;
+        font-size: 2rem;
+      }
+
+      .prose > h2:first-child {
+        margin-top: 0;
       }
 
       .prose h3 {
-        margin: 3rem 0 1rem;
-        color: var(--text);
-        font-size: clamp(1.45rem, 3vw, 1.8rem);
-        line-height: 1.2;
-        letter-spacing: -0.04em;
+        margin: 2.75rem 0 1rem;
+        font-size: 1.45rem;
       }
 
       .prose h4 {
-        margin: 2.25rem 0 0.8rem;
-        color: var(--text);
+        margin: 2rem 0 0.75rem;
         font-size: 1.15rem;
-        line-height: 1.35;
+      }
+
+      .prose p {
+        margin: 0 0 1.65rem;
+        color: #c8d3e0;
+        font-size: 1.16rem;
+        line-height: 1.85;
       }
 
       .prose strong {
@@ -326,15 +375,15 @@ const isProject = type === "project";
 
       .prose ul,
       .prose ol {
-        margin: 0 0 2rem;
+        margin: 0 0 1.9rem;
         padding-left: 1.5rem;
       }
 
       .prose li {
-        margin-bottom: 0.75rem;
+        margin-bottom: 0.65rem;
         color: #c8d3e0;
-        font-size: 1.12rem;
-        line-height: 1.8;
+        font-size: 1.1rem;
+        line-height: 1.75;
       }
 
       .prose ul li::marker,
@@ -343,27 +392,26 @@ const isProject = type === "project";
       }
 
       .prose blockquote {
-        margin: 2.8rem 0;
-        padding: 0.2rem 0 0.2rem 1.5rem;
+        margin: 2.5rem 0;
+        padding: 0.25rem 0 0.25rem 1.4rem;
         border-left: 4px solid var(--accent);
         background: transparent;
-        border-radius: 0;
       }
 
       .prose blockquote p {
         margin: 0;
         color: #f1f5f9;
-        font-size: clamp(1.35rem, 3vw, 1.75rem);
-        line-height: 1.55;
+        font-size: 1.32rem;
+        line-height: 1.6;
         font-style: normal;
-        letter-spacing: -0.025em;
       }
 
       .prose hr {
-        width: 5rem;
+        width: 4rem;
         margin: 3.5rem auto;
         border: none;
         border-top: 1px solid var(--border);
+        opacity: 0.7;
       }
 
       .prose a {
@@ -408,6 +456,7 @@ const isProject = type === "project";
       .prose img {
         width: min(960px, calc(100vw - 2rem));
         max-width: none;
+        height: auto;
         display: block;
         margin: 3rem 50%;
         transform: translateX(-50%);
@@ -430,6 +479,13 @@ const isProject = type === "project";
       .prose figcaption {
         margin-top: 0.8rem;
         color: var(--muted);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         font-size: 0.9rem;
         line-height: 1.5;
         text-align: center;
@@ -442,6 +498,13 @@ const isProject = type === "project";
         transform: translateX(-50%);
         border-collapse: collapse;
         overflow-x: auto;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
         font-size: 0.95rem;
       }
 
@@ -468,7 +531,28 @@ const isProject = type === "project";
       }
 
       /* ─────────────────────────────
-         Blocos opcionais para Markdown
+         KaTeX
+      ───────────────────────────── */
+
+      .prose .katex-display {
+        display: block;
+        margin: 2.4rem 0 2.8rem;
+        padding: 1rem 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+      }
+
+      .prose .katex {
+        font-size: 1.08em;
+        line-height: 1.4;
+      }
+
+      .prose .katex-display > .katex {
+        white-space: normal;
+      }
+
+      /* ─────────────────────────────
+         Blocos opcionais no Markdown
       ───────────────────────────── */
 
       .prose .technical-note,
@@ -508,6 +592,7 @@ const isProject = type === "project";
         .editorial-header h1,
         .project-post-header h1 {
           font-size: clamp(2.3rem, 11vw, 3.4rem);
+          line-height: 1.05;
         }
 
         .editorial-description,
@@ -517,30 +602,39 @@ const isProject = type === "project";
 
         .project-post-header {
           padding: 1.35rem;
+          margin-bottom: 4rem;
         }
 
         .prose {
           max-width: 100%;
           font-size: 1.05rem;
-          line-height: 1.78;
+          line-height: 1.75;
         }
 
         .prose p,
         .prose li {
           font-size: 1.05rem;
-          line-height: 1.78;
+          line-height: 1.75;
         }
 
         .prose h2 {
           margin-top: 3rem;
+          font-size: 1.65rem;
+          line-height: 1.3;
+        }
+
+        .prose h3 {
+          font-size: 1.3rem;
+          line-height: 1.3;
         }
 
         .prose blockquote p {
-          font-size: 1.2rem;
+          font-size: 1.15rem;
         }
 
         .post-summary {
           padding: 1rem 1.1rem;
+          margin-bottom: 3rem;
         }
       }
     </style>

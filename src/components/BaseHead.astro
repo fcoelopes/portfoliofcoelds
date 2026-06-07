@@ -32,6 +32,10 @@ const ogImageUrl = typeof image === 'string'
   title={SITE_TITLE}
   href={new URL("rss.xml", Astro.site)}
 />
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+/>
 <meta name="generator" content={Astro.generator} />
 
 <Font cssVariable="--font-space-grotesk" preload />

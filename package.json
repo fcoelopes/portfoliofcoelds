@@ -9,17 +9,24 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check": "astro check"
   },
   "dependencies": {
     "@astrojs/mdx": "^6.0.2",
     "@astrojs/rss": "^4.0.18",
     "@astrojs/sitemap": "^3.7.3",
     "astro": "^6.4.4",
+    "chart.js": "^4.5.1",
+    "katex": "^0.17.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
     "sharp": "^0.34.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.9",
     "prettier": "^3.8.3",
-    "prettier-plugin-astro": "^0.14.1"
+    "prettier-plugin-astro": "^0.14.1",
+    "typescript": "^6.0.3"
   }
 }
