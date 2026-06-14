@@ -1,6 +1,6 @@
 services:
   portfolio:
-    image: ghcr.io/${{ github.repository }}:latest
+    image: ghcr.io/fcoelopes/portfoliofcoelds:latest
     container_name: portfolio
     restart: unless-stopped
     expose:
