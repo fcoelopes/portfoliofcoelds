@@ -1,0 +1,21 @@
+services:
+  portfolio:
+    build: .
+    container_name: portfolio
+    restart: unless-stopped
+    expose:
+      - "8001"              # porta que a app escuta internamente
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      # Trocar meu-projeto pelo nome do router (único entre todos os projetos)
+      # Trocar o subdomínio pelo desejado
+      - "traefik.http.routers.portfolio.rule=Host(`portfolio.fcoelds.dev.br`)"
+      - "traefik.http.routers.portfolio.entrypoints=websecure"
+      - "traefik.http.routers.portfolio.tls.certresolver=cloudflare"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=8000"
+
+networks:
+  proxy:
+    external: true          # mesma rede do Traefik
