@@ -11,39 +11,16 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4
 
-      - name: Setup Node
-        uses: actions/setup-node@v4.4.0
+      - name: Deploy na VPS via SSH
+        uses: appleboy/ssh-action@v1.0.3
         with:
-          node-version: 22
-          cache: "npm"
-
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Check Astro
-        run: npm run check
-
-      - name: Build
-        run: npm run build
-
-      - name: Setup SSH
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Deploy via rsync
-        run: |
-          rsync -avz --delete \
-            -e "ssh -i ~/.ssh/deploy_key" \
-            dist/ \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ secrets.VPS_DEPLOY_PATH }}/
-
-      - name: Reload Nginx
-        run: |
-          ssh -i ~/.ssh/deploy_key \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-            "sudo nginx -t && sudo systemctl reload nginx"
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /srv/exemplo-app
+            git pull origin main
+            docker compose up -d --build
+            docker image prune -f
