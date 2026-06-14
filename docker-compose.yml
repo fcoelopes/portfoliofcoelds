@@ -1,10 +1,10 @@
 services:
   portfolio:
-    build: .
+    image: ghcr.io/${{ github.repository }}:latest
     container_name: portfolio
     restart: unless-stopped
     expose:
-      - "8001"              # porta que a app escuta internamente
+      - "80"              # porta que a app escuta internamente
     networks:
       - proxy
     labels:
@@ -14,7 +14,7 @@ services:
       - "traefik.http.routers.portfolio.rule=Host(`portfolio.fcoelds.dev.br`)"
       - "traefik.http.routers.portfolio.entrypoints=websecure"
       - "traefik.http.routers.portfolio.tls.certresolver=cloudflare"
-      - "traefik.http.services.portfolio.loadbalancer.server.port=8000"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=80"
 
 networks:
   proxy:
