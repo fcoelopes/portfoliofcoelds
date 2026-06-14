@@ -43,3 +43,6 @@ jobs:
             
             # Limpeza rápida
             docker image prune -f
+
+            # Recria o container forçando a atualização total
+            docker compose up -d --force-recreate

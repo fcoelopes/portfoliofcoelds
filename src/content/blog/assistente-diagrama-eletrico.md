@@ -3,6 +3,14 @@ title: "Assistente para interpretação de diagramas elétricos industriais"
 description: "Projeto de assistente técnico para interpretar diagramas elétricos industriais e apoiar leitura, inspeção e diagnóstico em manutenção."
 pubDate: 2026-06-15
 type: "project"
+category: "Reliability Analytics"
+status: "Idea"
+progress: 25
+problem: "Técnicos de manutenção gastam tempo interpretando diagramas elétricos complexos, o que pode levar a erros e atrasos na resolução de falhas."
+application: "Diagramas elétricos"
+stack: ["Python"]
+tags: ["Visão Computacional"]
+readingTime: "10 min"
 ---
 
 ## Contexto
