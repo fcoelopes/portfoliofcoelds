@@ -19,6 +19,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
+          # para resolver dubious ownership issue: sudo chown -R developer:developer /srv/portfolio
           script: |
             cd /srv/portfolio
             git pull origin main
