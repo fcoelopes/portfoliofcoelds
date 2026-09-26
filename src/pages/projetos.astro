@@ -6,6 +6,25 @@ import { getCollection } from "astro:content";
 
 const projects = [
   {
+    category: "Maintenance Decision Analytics",
+    status: "Em desenvolvimento",
+    progress: 75,
+    title: "USPM + Bruss",
+    objetivo:
+      "Framework para decidir quando intervir em um ativo e quando vale aproveitar uma janela operacional sem misturar necessidade técnica com conveniência de parada.",
+    problema:
+      "Planos de manutenção costumam tratar o melhor instante técnico e as oportunidades operacionais como se fossem a mesma decisão.",
+    aplicacao:
+      "Ativos industriais monitorados por condição, com histórico de falhas, custos de manutenção e janelas reais de parada.",
+    stack: ["Python", "Streamlit", "Weibull", "USPM", "Bruss"],
+    links: [
+      {
+        label: "Ver postagem do projeto",
+        href: "/blog/projeto-uspm-bruss",
+      },
+    ],
+  },
+  {
     category: "Reliability Engineering",
     status: "PoC",
     progress: 30,
