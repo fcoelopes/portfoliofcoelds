@@ -186,6 +186,8 @@ Detalhes de cronograma, recursos, CPM, heurísticas e simulações ficam dispon�
 
 A aplicação também exporta relatório gerencial em PDF e dados técnicos em Excel.
 
+Depois do replanejamento, o fluxo também pode devolver um **Microsoft Project XML (MSPDI)**. Esse arquivo materializa o snapshot operacional atual com condicionais já ativadas, atividades `DS-*` descobertas, precedências efetivas, recursos, modo escolhido e novos horários. O Project volta a ser o ambiente de comunicação e acompanhamento do cronograma, enquanto a lógica de decisão permanece no Turnaround Decision Support.
+
 ## 2. Aprovação do baseline: a ponte entre os dois mundos
 
 Inicialmente, Planejamento e Escopo/Replanejamento eram duas páginas que compartilhavam o mesmo domínio, mas reconstruíam seus próprios cenários.
@@ -493,7 +495,7 @@ Uma parada precisa manter memória de:
 
 O Turnaround Decision Support não pretende substituir o Microsoft Project, o julgamento técnico da manutenção, a decisão humana entre reparar ou substituir ou as ferramentas corporativas de gestão da execução.
 
-A proposta é complementar essas ferramentas com modelos que normalmente exigiriam análises separadas.
+A proposta é complementar essas ferramentas com modelos que normalmente exigiriam análises separadas e devolver ao Microsoft Project o cronograma operacional já materializado depois das decisões e do replanejamento.
 
 Também existem limitações atuais:
 
