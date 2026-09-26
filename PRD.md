@@ -38,7 +38,11 @@ public/
 ### Stack de deploy
 
 - Astro v6.4.4
-- Deploy: verificar `package.json` e configuração de CI
+- Cloudflare Pages
+- Production branch: `main`
+- Build command: `npm run build`
+- Output directory: `dist`
+- GitHub Actions usado apenas para validação de build; não existe mais deploy em VPS
 
 ---
 
