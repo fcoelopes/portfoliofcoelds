@@ -1,63 +1,76 @@
-# Astro Starter Kit: Blog
+# fcoelds.dev.br
 
-```sh
-npm create astro@latest -- --template blog
+Portfólio técnico de Edson Lopes, construído com Astro.
+
+## Stack
+
+- Astro 6
+- TypeScript
+- Markdown/MDX
+- KaTeX
+- Cloudflare Pages
+
+## Desenvolvimento local
+
+```bash
+npm ci
+npm run dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+Build de produção:
 
-Features:
+```bash
+npm run check
+npm run build
+```
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+O site estático é gerado em `dist/`.
 
-## 🚀 Project Structure
+## Deploy
 
-Inside of your Astro project, you'll see the following folders and files:
+O deploy de produção é feito pelo **Cloudflare Pages**, conectado diretamente ao
+repositório GitHub `fcoelopes/portfoliofcoelds`.
+
+Fluxo esperado:
 
 ```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
+push/merge em main
+        ↓
+Cloudflare Pages detecta o novo commit
+        ↓
+npm ci
+npm run build
+        ↓
+publica dist/
+        ↓
+https://fcoelds.dev.br
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+Configuração do projeto no Cloudflare Pages:
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+- Production branch: `main`
+- Build command: `npm run build`
+- Build output directory: `dist`
+- Node.js: `22.12.0` ou superior compatível com `package.json`
 
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
+O workflow GitHub Actions em `.github/workflows/ci.yml` **não faz deploy**.
+Ele apenas valida PRs e commits em `main` com `npm run check` e
+`npm run build`. O Cloudflare Pages é a única origem de deploy do site.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## Estrutura principal
 
-## 🧞 Commands
+```text
+src/
+  components/
+  content/blog/
+  layouts/
+  pages/
+  styles/
+public/
+astro.config.mjs
+```
 
-All commands are run from the root of the project, from a terminal:
+## Conteúdo
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+Os projetos e notas técnicas ficam em `src/content/blog/`.
+A página de projetos fica em `src/pages/projetos.astro`.
