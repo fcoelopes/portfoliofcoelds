@@ -67,9 +67,9 @@ O motor recebe:
 
 A aplicação calcula uma sequência não uniforme de intervenções e busca minimizar a taxa de custo de manutenção:
 
-```math
+$$
 MCR = \frac{Q(t)}{J(t)}
-```
+$$
 
 onde:
 
@@ -91,12 +91,12 @@ Para cada oportunidade, o sistema fixa a primeira intervenção naquela data e r
 
 Assim é possível medir o custo de deslocar a manutenção:
 
-```math
+$$
 Regret_i =
 \left[
 \frac{MCR(O_i)}{MCR(t^*)}-1
 \right]100
-```
+$$
 
 Uma janela pode então ser filtrada por:
 
@@ -110,9 +110,9 @@ Os parâmetros da distribuição não são digitados pelo usuário.
 
 A aplicação recebe falhas e observações censuradas e estima automaticamente uma Weibull de dois parâmetros por máxima verossimilhança.
 
-```math
+$$
 R(t)=\exp\left[-\left(\frac{t}{\eta}\right)^\beta\right]
-```
+$$
 
 Essa distribuição representa a vida da população e é usada principalmente nos ciclos futuros após a próxima intervenção.
 
@@ -158,9 +158,9 @@ O usuário lança ou importa os TTRs e o sistema calcula:
 
 A probabilidade operacional é:
 
-```math
+$$
 p_i=P(TTR\le W_i)
-```
+$$
 
 onde `W_i` é a duração disponível da oportunidade.
 
