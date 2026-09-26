@@ -53,7 +53,7 @@ Configuração do projeto no Cloudflare Pages:
 - Build output directory: `dist`
 - Node.js: `22.12.0` ou superior compatível com `package.json`
 
-O workflow GitHub Actions em `.github/workflows/deploy.yml` **não faz deploy**.
+O workflow GitHub Actions em `.github/workflows/ci.yml` **não faz deploy**.
 Ele apenas valida PRs e commits em `main` com `npm run check` e
 `npm run build`. O Cloudflare Pages é a única origem de deploy do site.
 
