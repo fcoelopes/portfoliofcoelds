@@ -304,6 +304,100 @@ Também existem OR, em que uma ou mais alternativas podem entrar, e AND, em que 
 
 Quando a escolha é técnica, o scheduler não decide sozinho com base em prazo. Ele calcula cenários de impacto e mantém a decisão com o planejador.
 
+### Onde a decisão do gatilho é configurada e resolvida
+
+Essa parte ficou dividida propositalmente em dois momentos: **Configuração** define a regra; **Operação** registra o que realmente aconteceu.
+
+Na aba **Configuração**, o planejador define o tipo da regra:
+
+- **conditional**: não é uma escolha. É uma relação direta do tipo “se este evento ocorrer, esta atividade entra”;
+- **XOR**: exatamente uma alternativa deve ser escolhida;
+- **OR**: uma ou mais alternativas podem entrar;
+- **AND**: todas as alternativas do grupo entram quando a condição é satisfeita.
+
+Para XOR e OR, existe ainda o modo de resolução.
+
+#### Resolução humana
+
+Quando `Resolução = human`, o evento apenas abre a necessidade de decisão.
+
+Exemplo:
+
+~~~text
+Inspecionar impelidor
+        ↓
+impeller_damage
+        ↓
+Decisão de escopo necessária
+        ↓
+┌─────────────────┬────────────────────┐
+│ Reparar         │ Substituir         │
+│                 │                    │
+│ makespan        │ makespan           │
+│ atraso          │ atraso             │
+│ custo           │ custo              │
+│ recursos        │ recursos           │
+│ desvio do plano │ desvio do plano    │
+└─────────────────┴────────────────────┘
+        ↓
+Resolver decisão
+~~~
+
+Na aba **Operação**, depois que o gatilho está concluído e o achado é registrado, a aplicação mostra **Decisão de escopo necessária**. Ela monta os cenários sombra e informa as consequências de cada alternativa, mas a escolha técnica continua humana.
+
+#### Resolução determinada pelo evento
+
+Quando `Resolução = event`, o evento já carrega a decisão operacional.
+
+Exemplo:
+
+~~~text
+Gatilho: Ensaiar motor
+
+repairable
+    ↓
+Reparar motor
+
+replacement_required
+    ↓
+Substituir motor
+~~~
+
+A configuração usa uma rota do tipo:
+
+~~~text
+repairable=>Reparar motor |
+replacement_required=>Substituir motor
+~~~
+
+Nesse caso, ao registrar o achado na Operação, a aplicação aplica automaticamente o ramo correspondente e registra o resultado em **Regras determinísticas aplicadas**.
+
+O fluxo completo fica assim:
+
+~~~text
+CONFIGURAÇÃO
+gatilho + evento + alternativas + modo de resolução
+        ↓
+OPERAÇÃO
+gatilho concluído
+        ↓
+achado registrado
+        ↓
+┌───────────────────────────┬───────────────────────────┐
+│ human                     │ event                     │
+│                           │                           │
+│ decisão fica pendente     │ rota é aplicada           │
+│ cenários sombra           │ automaticamente           │
+│ escolha humana            │                           │
+└───────────────────────────┴───────────────────────────┘
+        ↓
+escopo materializado
+        ↓
+replanejamento
+~~~
+
+Essa separação é importante porque **detectar um evento** e **decidir o que fazer com ele** não são necessariamente a mesma coisa.
+
 ### Dynamic Scope Discovery
 
 Existe uma diferença importante entre **escopo condicional** e **escopo realmente novo**.
