@@ -5,8 +5,11 @@ import BaseHead from "../components/BaseHead.astro";
 import Footer from "../components/Footer.astro";
 import FormattedDate from "../components/FormattedDate.astro";
 import Header from "../components/Header.astro";
+import "../styles/editorial-article.css";
 
-type Props = CollectionEntry<"blog">["data"];
+type Props = CollectionEntry<"blog">["data"] & {
+  headings?: { depth: number; slug: string; text: string }[];
+};
 
 const {
   title,
@@ -21,7 +24,10 @@ const {
   category,
   status,
   progress,
+  headings = [],
 } = Astro.props as Props;
+
+const contents = headings.filter((h) => h.depth === 2).slice(0, 14);
 
 const isProject = type === "project";
 ---
@@ -637,7 +643,12 @@ const isProject = type === "project";
   <body>
     <Header />
 
-    <main>
+    <main class="editorial-article">
+      <nav class="reading-breadcrumb" aria-label="Navegação do artigo">
+        <a href="/blog/">← Voltar ao blog</a>
+        <span aria-hidden="true">/</span>
+        <span>{isProject ? "Diário de projeto" : "Nota técnica"}</span>
+      </nav>
       <article class="post-wrap">
         {
           isProject ? (
@@ -753,9 +764,25 @@ const isProject = type === "project";
           )
         }
 
-        <div class="prose">
-          <slot />
+        <div class:list={["reading-body-grid", { "reading-body-grid--with-index": contents.length > 1 }]}>
+          {contents.length > 1 && (
+            <aside class="reading-contents" aria-label="Nesta leitura">
+              <div class="reading-contents-inner">
+                <p>NESTA LEITURA</p>
+                <ol>
+                  {contents.map((item) => (
+                    <li><a href={"#" + item.slug}>{item.text}</a></li>
+                  ))}
+                </ol>
+              </div>
+            </aside>
+          )}
+          <div class="prose" id="conteudo"><slot /></div>
         </div>
+        <footer class="reading-end">
+          <span>FIM DA LEITURA <span aria-hidden="true">/</span> CADERNO DE IDEIAS</span>
+          <a href="/blog/">Explorar mais artigos <span aria-hidden="true">↗</span></a>
+        </footer>
       </article>
     </main>
 
