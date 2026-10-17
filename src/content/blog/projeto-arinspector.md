@@ -3,7 +3,6 @@ title: "ARInspector — quando o equipamento passa a orientar a inspeção"
 description: "Uma plataforma em desenvolvimento para conectar ativos físicos, contexto técnico e execução de inspeções por realidade aumentada, com Studio para autoria e Edge para o campo."
 pubDate: "2026-10-17"
 type: "project"
-showInBlog: true
 category: "Realidade aumentada e manutenção industrial"
 status: "Em desenvolvimento"
 readingTime: "7 min"
