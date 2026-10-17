@@ -75,6 +75,19 @@ def validate() -> None:
             f"only in blog: {sorted(html_paths - feed_paths)}"
         )
 
+    # Regression: every generated, non-draft article must be discoverable on
+    # both public channels, regardless of whether it is a note or a project.
+    built_article_paths = {
+        f"/blog/{page.parent.name}/"
+        for page in (DIST / "blog").glob("*/index.html")
+    }
+    if feed_paths != built_article_paths:
+        raise AssertionError(
+            f"Published route not discoverable. Missing from feed: "
+            f"{sorted(built_article_paths - feed_paths)}; "
+            f"not built as article: {sorted(feed_paths - built_article_paths)}"
+        )
+
     print(f"RSS is valid XML. {len(items)} items, all links resolve; RSS and blog agree.")
 
 

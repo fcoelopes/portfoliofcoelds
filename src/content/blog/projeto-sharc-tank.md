@@ -3,7 +3,6 @@ title: "Sharc Tank — uma incubadora de oportunidades que ainda não conhecemos
 description: "A proposta de um laboratório multiagente que descobre hipóteses de negócios em qualquer setor, conecta evidências, debate investimentos e transforma incertezas em experimentos."
 pubDate: "2026-10-17"
 type: "project"
-showInBlog: true
 category: "Empreendedorismo, IA e avaliação de investimentos"
 status: "Em desenvolvimento"
 readingTime: "7 min"
