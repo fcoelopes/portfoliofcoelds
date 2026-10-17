@@ -9,7 +9,7 @@ import Header from "../../components/Header.astro";
 type BlogEntry = CollectionEntry<"blog">;
 
 const posts: BlogEntry[] = (await getCollection("blog"))
-  .filter((post) => post.data.type === "note" && !post.data.draft)
+  .filter((post) => !post.data.draft && (post.data.type === "note" || post.data.showInBlog))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
 const getPostHref = (post: BlogEntry) =>
@@ -20,8 +20,8 @@ const getPostHref = (post: BlogEntry) =>
 <html lang="pt-BR">
   <head>
     <BaseHead
-      title="Notas técnicas | Edson Lopes"
-      description="Notas técnicas sobre confiabilidade, manutenção industrial, gestão de ativos, dados e decisão."
+      title="Blog | Edson Lopes"
+      description="Artigos e projetos sobre confiabilidade, engenharia de dados, inteligência artificial, finanças e descoberta de oportunidades."
     />
 
     <style>
@@ -166,14 +166,13 @@ const getPostHref = (post: BlogEntry) =>
 
     <main class="notes-page">
       <header class="notes-header">
-        <p class="eyebrow">Notas técnicas</p>
+        <p class="eyebrow">Blog</p>
 
-        <h1>Confiabilidade, manutenção e decisão.</h1>
+        <h1>Ideias, estudos e projetos.</h1>
 
         <p>
-          Reflexões e estudos aplicados sobre manutenção industrial,
-          confiabilidade, gestão de ativos, análise de dados e modelos de apoio
-          à decisão.
+          Reflexões e experimentos sobre confiabilidade, dados, inteligência
+          artificial, finanças, empreendedorismo e tomada de decisão.
         </p>
       </header>
 
@@ -211,7 +210,7 @@ const getPostHref = (post: BlogEntry) =>
             </ul>
           </section>
         ) : (
-          <p class="empty-state">Nenhuma nota técnica publicada ainda.</p>
+          <p class="empty-state">Nenhum artigo publicado ainda.</p>
         )
       }
     </main>
