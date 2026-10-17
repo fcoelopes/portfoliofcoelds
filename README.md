@@ -74,3 +74,14 @@ astro.config.mjs
 
 Os projetos e notas técnicas ficam em `src/content/blog/`.
 A página de projetos fica em `src/pages/projetos.astro`.
+
+### Regra de publicação
+
+**Todo artigo Markdown/MDX sem `draft: true` no frontmatter é publicado no blog e no RSS**, independentemente de `type: project` ou `type: note`. O mesmo filtro controla o índice e as rotas públicas, sem marcações adicionais.
+
+- `type: project`: usa apresentação editorial de projeto, mas aparece no blog normalmente.
+- `type: note`: usa a apresentação editorial de nota e aparece no blog normalmente.
+- `draft: true`: não aparece no blog, RSS nem recebe uma rota pública.
+- `src/content/blog/template.md`: modelo para redação, permanece como rascunho.
+
+Após editar conteúdo, execute `npm run check && npm run build && python3 scripts/validate_rss.py` para conferir publicação e feed. O CI aplica a mesma verificação.
