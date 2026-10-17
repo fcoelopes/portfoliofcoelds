@@ -5,216 +5,206 @@ import BaseHead from "../../components/BaseHead.astro";
 import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
+import "../../styles/editorial-index.css";
 
-type BlogEntry = CollectionEntry<"blog">;
+type Entry = CollectionEntry<"blog">;
+type Topic = "Engenharia" | "Tecnologia" | "Negócios";
 
-const posts: BlogEntry[] = (await getCollection("blog"))
+const posts = (await getCollection("blog"))
   .filter((post) => !post.data.draft && (post.data.type === "note" || post.data.showInBlog))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() ||
+    a.data.title.localeCompare(b.data.title, "pt-BR"));
 
-const getPostHref = (post: BlogEntry) =>
-  `/blog/${post.id.replace(/\.mdx?$/, "")}/`;
+const topicFor = (post: Entry): Topic => {
+  const text = [post.data.title, post.data.category ?? "", ...(post.data.tags ?? [])]
+    .join(" ").toLocaleLowerCase("pt-BR");
+  if (/sharc|negóci|empreended|finan|invest|oportunidade/.test(text)) return "Negócios";
+  if (/inteligência artificial|machine learning|realidade aumentada|arinspector|llm|(^| )ia( |$)|software/.test(text))
+    return "Tecnologia";
+  return "Engenharia";
+};
+const href = (post: Entry) => "/blog/" + post.id.replace(/\.mdx?$/, "") + "/";
+const searchText = (post: Entry) =>
+  [post.data.title, post.data.description, post.data.category ?? "", ...(post.data.tags ?? [])].join(" ");
+const lead = posts[0];
+const articles = posts.slice(1);
+const filters = [
+  { label: "Todos", value: "all" },
+  { label: "Engenharia", value: "Engenharia" },
+  { label: "IA & Tecnologia", value: "Tecnologia" },
+  { label: "Negócios & Decisão", value: "Negócios" },
+];
 ---
 
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <BaseHead
-      title="Blog | Edson Lopes"
-      description="Artigos e projetos sobre confiabilidade, engenharia de dados, inteligência artificial, finanças e descoberta de oportunidades."
+      title="Caderno de ideias | Blog — Edson Lopes"
+      description="Uma publicação sobre engenharia, confiabilidade, inteligência artificial, finanças e os caminhos por trás de projetos reais."
     />
-
-    <style>
-      .notes-page {
-        width: min(980px, calc(100% - 2rem));
-        margin: 0 auto;
-        padding: 4.5rem 0 6rem;
-      }
-
-      .notes-header {
-        max-width: 760px;
-        margin-bottom: 3rem;
-      }
-
-      .eyebrow {
-        margin: 0 0 0.9rem;
-        color: var(--accent);
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-      }
-
-      .notes-header h1 {
-        margin: 0;
-        color: var(--text);
-        font-size: clamp(2.6rem, 6vw, 4.6rem);
-        line-height: 1;
-        letter-spacing: -0.06em;
-      }
-
-      .notes-header p {
-        max-width: 680px;
-        margin: 1.4rem 0 0;
-        color: #b7c7dc;
-        font-size: 1.08rem;
-        line-height: 1.75;
-      }
-
-      .notes-list {
-        display: grid;
-        gap: 1rem;
-        margin: 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .note-card {
-        display: block;
-        padding: 1.4rem 1.5rem;
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.02);
-        text-decoration: none;
-        transition:
-          transform 160ms ease,
-          border-color 160ms ease,
-          background 160ms ease;
-      }
-
-      .note-card:hover {
-        transform: translateY(-2px);
-        border-color: rgba(245, 158, 11, 0.45);
-        background: rgba(255, 255, 255, 0.035);
-      }
-
-      .note-meta {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.6rem;
-        align-items: center;
-        margin-bottom: 0.8rem;
-        color: var(--accent);
-        font-size: 0.76rem;
-        font-weight: 800;
-        letter-spacing: 0.09em;
-        text-transform: uppercase;
-      }
-
-      .note-meta .reading-time {
-        color: var(--muted);
-        font-weight: 600;
-        letter-spacing: 0;
-        text-transform: none;
-      }
-
-      .note-card h2 {
-        margin: 0 0 0.75rem;
-        color: var(--text);
-        font-size: clamp(1.25rem, 3vw, 1.65rem);
-        line-height: 1.2;
-        letter-spacing: -0.035em;
-      }
-
-      .note-card p {
-        max-width: 780px;
-        margin: 0;
-        color: #a9bad0;
-        font-size: 0.98rem;
-        line-height: 1.65;
-      }
-
-      .note-tags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.45rem;
-        margin-top: 1rem;
-      }
-
-      .note-tags span {
-        padding: 0.3rem 0.55rem;
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        color: var(--muted);
-        font-size: 0.76rem;
-        line-height: 1;
-      }
-
-      .empty-state {
-        padding: 1.5rem;
-        border: 1px solid var(--border);
-        border-radius: 1rem;
-        background: rgba(255, 255, 255, 0.02);
-        color: var(--muted);
-      }
-
-      @media (max-width: 640px) {
-        .notes-page {
-          width: min(100% - 1.25rem, 980px);
-          padding: 3rem 0 4rem;
-        }
-
-        .note-card {
-          padding: 1.15rem;
-        }
-      }
-    </style>
   </head>
-
   <body>
     <Header />
-
-    <main class="notes-page">
-      <header class="notes-header">
-        <p class="eyebrow">Blog</p>
-
-        <h1>Ideias, estudos e projetos.</h1>
-
-        <p>
-          Reflexões e experimentos sobre confiabilidade, dados, inteligência
-          artificial, finanças, empreendedorismo e tomada de decisão.
-        </p>
+    <main class="journal">
+      <header class="journal-masthead">
+        <div class="journal-overline">
+          <span>EDSON LOPES <span aria-hidden="true">/</span> PUBLICAÇÃO PESSOAL</span>
+          <span>ENGENHARIA · TECNOLOGIA · NEGÓCIOS</span>
+        </div>
+        <div class="journal-heading">
+          <div>
+            <p class="journal-kicker">Notas, projetos e ideias em desenvolvimento</p>
+            <h1>Caderno <em>de ideias.</em></h1>
+          </div>
+          <p class="journal-deck">
+            Pensar em público. Investigar com método. Transformar perguntas difíceis em decisões melhores.
+          </p>
+        </div>
+        <div class="journal-rule">
+          <span>ARTIGOS E ENSAIOS</span>
+          <span>{String(posts.length).padStart(2, "0")} PUBLICAÇÕES</span>
+        </div>
       </header>
 
-      {
-        posts.length > 0 ? (
-          <section aria-label="Lista de notas técnicas">
-            <ul class="notes-list">
-              {posts.map((post: BlogEntry) => (
-                <li>
-                  <a class="note-card" href={getPostHref(post)}>
-                    <div class="note-meta">
-                      <FormattedDate date={post.data.pubDate} />
+      {lead && (
+        <section id="editor-choice" class="journal-feature-section" aria-label="Artigo em destaque">
+          <div class="journal-section-kicker">
+            <span>01 / EM DESTAQUE</span>
+            <span>LEITURA RECOMENDADA <span aria-hidden="true">↗</span></span>
+          </div>
+          <a class="journal-feature journal-story" href={href(lead)}
+            data-topic={topicFor(lead)} data-search={searchText(lead)}>
+            <div class="journal-feature-copy">
+              <div class="journal-post-meta">
+                <span class="journal-topic">{topicFor(lead)}</span>
+                <span class="journal-meta-sep" aria-hidden="true">/</span>
+                <FormattedDate date={lead.data.pubDate} />
+                {lead.data.readingTime && <span class="journal-readtime">{lead.data.readingTime}</span>}
+              </div>
+              <h2>{lead.data.title}</h2>
+              <p>{lead.data.description}</p>
+              <span class="journal-read-link">Explorar artigo <span aria-hidden="true">↗</span></span>
+            </div>
+            <div class="journal-feature-art" aria-hidden="true">
+              <span class="journal-art-index">FIELDNOTES / {String(posts.length).padStart(2, "0")}</span>
+              <span class="journal-art-glyph">{topicFor(lead) === "Negócios" ? "↗" : topicFor(lead) === "Tecnologia" ? "◇" : "∑"}</span>
+              <span class="journal-art-bottom">CURIOSIDADE × MÉTODO</span>
+            </div>
+          </a>
+        </section>
+      )}
 
-                      {post.data.readingTime && (
-                        <span class="reading-time">
-                          {post.data.readingTime}
-                        </span>
-                      )}
-                    </div>
+      <section class="journal-library" id="arquivo" aria-labelledby="archive-title">
+        <div class="journal-section-kicker">
+          <span>02 / ARQUIVO EDITORIAL</span>
+          <span>IDEIAS PARA EXPLORAR <span aria-hidden="true">↓</span></span>
+        </div>
+        <div class="journal-library-head">
+          <div>
+            <h2 id="archive-title">Arquivo <em>de artigos.</em></h2>
+            <p>Ensaios, investigações e diários de projetos — com contexto, método e dúvidas ainda abertas.</p>
+          </div>
+          <a class="journal-rss" href="/rss.xml" aria-label="Acompanhar novos artigos por RSS">
+            Assinar RSS <span aria-hidden="true">↗</span>
+          </a>
+        </div>
 
-                    <h2>{post.data.title}</h2>
+        <div class="journal-toolbar" role="search">
+          <div class="journal-filters" role="group" aria-label="Filtrar artigos por tema">
+            {filters.map((filter) => (
+              <button type="button" class="journal-filter" data-filter={filter.value}
+                aria-pressed={filter.value === "all" ? "true" : "false"}>{filter.label}</button>
+            ))}
+          </div>
+          <label class="journal-search">
+            <span class="sr-only">Buscar artigos por título, assunto ou palavra-chave</span>
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 5 5"/></svg>
+            <input id="article-search" type="search" placeholder="Buscar no arquivo..." autocomplete="off" />
+          </label>
+        </div>
+        <div class="journal-countline" aria-live="polite">
+          <span id="article-count">{posts.length} artigos disponíveis</span>
+          <span>SELEÇÃO EDITORIAL</span>
+        </div>
 
-                    {post.data.description && <p>{post.data.description}</p>}
-
-                    {post.data.tags && post.data.tags.length > 0 && (
-                      <div class="note-tags">
-                        {post.data.tags.slice(0, 4).map((tag: string) => (
-                          <span>{tag}</span>
-                        ))}
-                      </div>
-                    )}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+        {articles.length > 0 ? (
+          <ul class="journal-article-grid">
+            {articles.map((post, i) => (
+              <li class="journal-story journal-article" data-topic={topicFor(post)} data-search={searchText(post)}>
+                <a href={href(post)} class="journal-article-link">
+                  <div class="journal-article-top">
+                    <span class="journal-number">{String(i + 2).padStart(2, "0")}</span>
+                    <span class="journal-topic">{topicFor(post)}</span>
+                  </div>
+                  <h3>{post.data.title}</h3>
+                  <p>{post.data.description}</p>
+                  <div class="journal-article-footer">
+                    <span><FormattedDate date={post.data.pubDate} /></span>
+                    {post.data.readingTime && <span>{post.data.readingTime}</span>}
+                    <span class="journal-article-arrow" aria-hidden="true">↗</span>
+                  </div>
+                </a>
+              </li>
+            ))}
+          </ul>
         ) : (
-          <p class="empty-state">Nenhum artigo publicado ainda.</p>
-        )
-      }
-    </main>
+          <p class="journal-empty">Novas publicações serão adicionadas aqui.</p>
+        )}
+        <p id="journal-no-results" class="journal-empty" hidden>
+          Nenhum artigo encontrado. Experimente outro termo ou escolha um tema diferente.
+        </p>
+      </section>
 
+      <aside class="journal-colophon" aria-label="Sobre esta publicação">
+        <div>
+          <p class="journal-kicker">POR TRÁS DO CADERNO</p>
+          <h2>Conhecimento que sai<br />do papel.</h2>
+        </div>
+        <div>
+          <p>
+            Este espaço reúne projetos, experimentos e reflexões sobre como combinar
+            experiência de campo, análise de dados e raciocínio financeiro para tomar decisões
+            melhores. Sem soluções mágicas, com aprendizados documentados.
+          </p>
+          <a href="/about">Mais sobre quem escreve <span aria-hidden="true">↗</span></a>
+        </div>
+      </aside>
+    </main>
     <Footer />
+    <script>
+      const normalize = (value: string) =>
+        value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLocaleLowerCase("pt-BR");
+      const buttons = Array.from(document.querySelectorAll<HTMLButtonElement>("[data-filter]"));
+      const stories = Array.from(document.querySelectorAll<HTMLElement>(".journal-story"));
+      const search = document.querySelector<HTMLInputElement>("#article-search");
+      const count = document.querySelector<HTMLElement>("#article-count");
+      const empty = document.querySelector<HTMLElement>("#journal-no-results");
+      const featured = document.querySelector<HTMLElement>("#editor-choice");
+      let activeTopic = "all";
+
+      const update = () => {
+        const term = normalize(search?.value.trim() ?? "");
+        let matches = 0;
+        for (const story of stories) {
+          const topicMatch = activeTopic === "all" || story.dataset.topic === activeTopic;
+          const textMatch = normalize(story.dataset.search ?? "").includes(term);
+          story.hidden = !(topicMatch && textMatch);
+          if (!story.hidden) matches += 1;
+        }
+        const lead = featured?.querySelector<HTMLElement>(".journal-story");
+        if (featured) featured.hidden = Boolean(lead?.hidden);
+        if (count) count.textContent = String(matches) + (matches === 1 ? " artigo encontrado" : " artigos encontrados");
+        if (empty) empty.hidden = matches !== 0;
+      };
+      for (const button of buttons) {
+        button.addEventListener("click", () => {
+          activeTopic = button.dataset.filter ?? "all";
+          for (const item of buttons) item.setAttribute("aria-pressed", String(item === button));
+          update();
+        });
+      }
+      search?.addEventListener("input", update);
+    </script>
   </body>
 </html>
