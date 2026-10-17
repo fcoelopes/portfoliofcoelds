@@ -6,12 +6,13 @@ import Footer from "../../components/Footer.astro";
 import FormattedDate from "../../components/FormattedDate.astro";
 import Header from "../../components/Header.astro";
 import "../../styles/editorial-index.css";
+import { articleHref, isListedArticle } from "../../lib/publications";
 
 type Entry = CollectionEntry<"blog">;
 type Topic = "Engenharia" | "Tecnologia" | "Negócios";
 
 const posts = (await getCollection("blog"))
-  .filter((post) => !post.data.draft && (post.data.type === "note" || post.data.showInBlog))
+  .filter(isListedArticle)
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf() ||
     a.data.title.localeCompare(b.data.title, "pt-BR"));
 
@@ -23,7 +24,7 @@ const topicFor = (post: Entry): Topic => {
     return "Tecnologia";
   return "Engenharia";
 };
-const href = (post: Entry) => "/blog/" + post.id.replace(/\.mdx?$/, "") + "/";
+const href = (post: Entry) => articleHref(post);
 const searchText = (post: Entry) =>
   [post.data.title, post.data.description, post.data.category ?? "", ...(post.data.tags ?? [])].join(" ");
 const lead = posts[0];
