@@ -3,6 +3,7 @@ title: "Título"
 description: "Descrição"
 pubDate: 2026-06-11
 type: "project"
+draft: true
 category: "Reliability Analytics"
 status: "Pesquisa"
 progress: 45
