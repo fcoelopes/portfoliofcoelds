@@ -1,0 +1,304 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+
+const pillars = [
+  {
+    number: "01",
+    name: "Descoberta",
+    en: "Discovery",
+    text: "Encontrar sinais de demanda, problemas negligenciados e mudanças de mercado — mesmo onde ninguém pensou em procurar.",
+    detail: "Um radar aberto, sem listas fechadas de setores ou ideias previamente selecionadas.",
+  },
+  {
+    number: "02",
+    name: "Avaliação",
+    en: "Investment Committee",
+    text: "Confrontar evidências, estimar viabilidade financeira e comparar cada negócio com as alternativas para o mesmo capital.",
+    detail: "Um Shark Tank de agentes: o otimista precisa convencer o cético, e ambos precisam justificar seus números.",
+  },
+  {
+    number: "03",
+    name: "Incubadora",
+    en: "Venture Lab",
+    text: "Transformar teses em pitches transparentes, experimentos de baixo custo e decisões revisadas à luz do que aconteceu.",
+    detail: "Investir, testar, esperar ou abandonar: cada escolha deixa uma trilha de aprendizado.",
+  },
+];
+
+const criteria = [
+  ["Evidência", "O que sabemos, de onde veio e o que ainda é apenas hipótese."],
+  ["Viabilidade", "Receita, margem, caixa, capital necessário e riscos relevantes."],
+  ["Alternativas", "Qual retorno estamos deixando de buscar ao escolher esta ideia."],
+  ["Experimento", "Qual é o teste mais econômico capaz de mudar nossa decisão."],
+];
+
+const toolkit = [
+  ["Deep Agents + LangChain", "Pesquisa, ferramentas e colaboração entre agentes especializados."],
+  ["LangGraph", "Fluxos com estado, checkpoints, decisões condicionais e supervisão."],
+  ["Knowledge Graph", "Relações entre mercados, dores, organizações, evidências, riscos e hipóteses."],
+  ["LangSmith", "Observabilidade e avaliação do trabalho dos agentes, quando configurado."],
+  ["Motores financeiros", "VPL, TIR, ROE, ROIC, EVA, cenários e custo de oportunidade por cálculos reproduzíveis."],
+];
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <BaseHead
+      title="Sharc Tank | Inteligência de oportunidades e investimentos"
+      description="Conheça o Sharc Tank: um laboratório pessoal de inteligência multiagente que busca oportunidades de negócios em qualquer setor, confronta evidências, avalia custo de oportunidade e desenha experimentos."
+    />
+  </head>
+  <body>
+    <Header />
+    <main class="sharc">
+      <section class="sharc-hero" aria-labelledby="sharc-title">
+        <div class="sharc-hero-copy">
+          <p class="sharc-eyebrow"><span class="sharc-signal"></span> Laboratório de inteligência empreendedora · Em desenvolvimento</p>
+          <p class="sharc-brand">SHARC <span>TANK</span><span class="sharc-dot">.</span></p>
+          <h1 id="sharc-title">E se a melhor ideia de negócio fosse aquela que você <em>ainda não teve?</em></h1>
+          <p class="sharc-intro">
+            Um laboratório pessoal para descobrir oportunidades em qualquer mercado,
+            questionar premissas, comparar investimentos e transformar incertezas em
+            experimentos concretos — com uma equipe de agentes de IA.
+          </p>
+          <div class="sharc-actions">
+            <a href="#metodo" class="button primary">Conheça o método <span aria-hidden="true">↘</span></a>
+            <a href="/blog/projeto-sharc-tank/" class="button secondary">Leia a introdução completa</a>
+          </div>
+        </div>
+
+        <aside class="sharc-visual" aria-label="As três etapas previstas do Sharc Tank">
+          <div class="sharc-visual-top">
+            <span class="sharc-visual-label">THE OPPORTUNITY ENGINE</span>
+            <span class="sharc-visual-pulse">CONCEPT / 01</span>
+          </div>
+          <div class="sharc-visual-core">
+            <span class="sharc-core-kicker">DE UMA PERGUNTA</span>
+            <strong>O que estamos<br />deixando passar?</strong>
+            <span class="sharc-core-line" aria-hidden="true"></span>
+          </div>
+          <div class="sharc-orbit">
+            <div class="sharc-orbit-item"><span>01</span><strong>Detectar</strong><small>sinais</small></div>
+            <span class="sharc-orbit-arrow" aria-hidden="true">→</span>
+            <div class="sharc-orbit-item"><span>02</span><strong>Confrontar</strong><small>teses</small></div>
+            <span class="sharc-orbit-arrow" aria-hidden="true">→</span>
+            <div class="sharc-orbit-item"><span>03</span><strong>Testar</strong><small>hipóteses</small></div>
+          </div>
+          <div class="sharc-visual-foot"><span>CAPITAL É FINITO.</span><span>CURIOSIDADE NÃO PRECISA SER.</span></div>
+        </aside>
+      </section>
+
+      <section class="sharc-manifesto" aria-labelledby="manifesto-title">
+        <p class="sharc-section-label">A tese</p>
+        <div>
+          <h2 id="manifesto-title">Ideias são abundantes.<br /><em>Boas decisões, nem tanto.</em></h2>
+          <p>
+            O desafio não é gerar uma lista de negócios promissores. É descobrir
+            problemas reais, distinguir fatos de suposições e saber quando uma
+            oportunidade merece capital — ou apenas um teste barato.
+          </p>
+          <p>
+            O Sharc Tank nasce da interseção entre empreendedorismo,
+            avaliação econômico-financeira e sistemas multiagentes. Seu horizonte
+            não é um setor específico. É o conjunto de oportunidades que ainda
+            não aprendemos a enxergar.
+          </p>
+        </div>
+      </section>
+
+      <section class="sharc-method" id="metodo" aria-labelledby="metodo-title">
+        <div class="sharc-section-head">
+          <p class="sharc-section-label">Como vai funcionar</p>
+          <h2 id="metodo-title">Três movimentos.<br />Uma inteligência que aprende.</h2>
+        </div>
+        <div class="sharc-pillar-grid">
+          {pillars.map((pillar) => (
+            <article class="sharc-pillar">
+              <div class="sharc-pillar-top"><span>{pillar.number}</span><small>{pillar.en}</small></div>
+              <h3>{pillar.name}</h3>
+              <p>{pillar.text}</p>
+              <div class="sharc-pillar-detail">{pillar.detail}</div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section class="sharc-evaluation" aria-labelledby="evaluation-title">
+        <div class="sharc-evaluation-copy">
+          <p class="sharc-section-label">O diferencial</p>
+          <h2 id="evaluation-title">Um Shark Tank que não aceita apenas um bom pitch.</h2>
+          <p>
+            Agentes com perspectivas distintas vão investigar demanda, examinar
+            riscos, projetar fluxos de caixa, desafiar premissas e avaliar o
+            custo de oportunidade de cada decisão.
+          </p>
+          <blockquote>
+            “Se eu não investir neste negócio, qual é a melhor alternativa
+            possível para meu dinheiro, meu tempo e minha atenção?”
+          </blockquote>
+          <p>
+            Além de VPL, TIR, ROE, ROIC e EVA, a análise deverá considerar
+            liquidez, capital de giro, cenários e o valor de esperar por melhores
+            evidências. O objetivo não é automatizar a coragem de investir;
+            é qualificar a decisão de <strong>investir, testar ou desistir</strong>.
+          </p>
+        </div>
+        <div class="sharc-criteria">
+          {criteria.map((criterion) => (
+            <article><span class="sharc-criterion-symbol" aria-hidden="true">↗</span><div><h3>{criterion[0]}</h3><p>{criterion[1]}</p></div></article>
+          ))}
+        </div>
+      </section>
+
+      <section class="sharc-knowledge" aria-labelledby="knowledge-title">
+        <div class="sharc-section-head">
+          <p class="sharc-section-label">Conhecimento cumulativo</p>
+          <h2 id="knowledge-title">Não basta encontrar sinais.<br />É preciso conectar os pontos.</h2>
+          <p>
+            A proposta inclui um grafo de conhecimento capaz de relacionar
+            mercados, problemas, clientes, tecnologias, concorrentes, premissas
+            e evidências. Uma descoberta poderá ajudar a revisar hipóteses
+            de investigações anteriores.
+          </p>
+        </div>
+        <div class="sharc-network" aria-label="Exemplos de relações planejadas no grafo de conhecimento">
+          <span>Problema</span>
+          <b aria-hidden="true">↔</b>
+          <span>Oportunidade</span>
+          <b aria-hidden="true">↔</b>
+          <span>Evidências</span>
+          <b aria-hidden="true">↔</b>
+          <span>Decisão</span>
+        </div>
+      </section>
+
+      <section class="sharc-stack" aria-labelledby="stack-title">
+        <div class="sharc-section-head">
+          <p class="sharc-section-label">Arquitetura prevista</p>
+          <h2 id="stack-title">Agentes para investigar.<br />Métodos para decidir.</h2>
+        </div>
+        <div class="sharc-stack-grid">
+          {toolkit.map((tool) => (
+            <article><h3>{tool[0]}</h3><p>{tool[1]}</p></article>
+          ))}
+        </div>
+      </section>
+
+      <section class="sharc-status" aria-labelledby="status-title">
+        <div>
+          <p class="sharc-section-label">Estado do projeto</p>
+          <h2 id="status-title">Uma visão em construção. Sem promessas inventadas.</h2>
+          <p>
+            O trabalho começou pela fundação de engenharia e pela definição
+            dos requisitos, arquitetura e métodos de avaliação financeira.
+            O radar de mercado, a investigação autônoma, o comitê de
+            investimentos e o grafo persistente são etapas planejadas,
+            não capacidades já entregues.
+          </p>
+        </div>
+        <div class="sharc-next">
+          <span>PRÓXIMO PASSO</span>
+          <strong>Encontrar uma oportunidade que não estávamos procurando.</strong>
+          <p>Com fontes verificáveis, análise crítica e um experimento que possa mudar nossa decisão.</p>
+        </div>
+      </section>
+
+      <footer class="sharc-cta">
+        <p class="sharc-section-label">Explore o projeto</p>
+        <h2>Discover opportunities.<br />Challenge assumptions.<br /><em>Allocate capital intelligently.</em></h2>
+        <div class="sharc-actions">
+          <a href="/blog/projeto-sharc-tank/" class="button primary">Ler a visão detalhada</a>
+          <a href="/projetos" class="button secondary">Voltar aos projetos</a>
+        </div>
+      </footer>
+    </main>
+    <Footer />
+  </body>
+</html>
+
+<style>
+  .sharc { padding-bottom: 3rem; }
+  .sharc-eyebrow, .sharc-section-label { color: var(--accent); text-transform: uppercase; font-size: .75rem; font-weight: 800; letter-spacing: .14em; }
+  .sharc-eyebrow { display: flex; align-items: center; gap: .6rem; line-height: 1.5; }
+  .sharc-signal { width: 7px; height: 7px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 0 5px rgba(245,158,11,.1); }
+  .sharc-hero { display: grid; grid-template-columns: minmax(0,1.25fr) minmax(315px,.8fr); gap: 3.3rem; align-items: center; padding: 5.5rem 0 7rem; }
+  .sharc-brand { font-weight: 900; font-size: clamp(1.1rem,2.2vw,1.45rem); letter-spacing: .14em; color: var(--text); margin: 2.2rem 0 1rem; }
+  .sharc-brand span { color: var(--accent); } .sharc-brand .sharc-dot { color: var(--text); }
+  .sharc h1 { font-size: clamp(2.8rem,5.4vw,5.6rem); line-height: 1.02; letter-spacing: -.07em; max-width: 790px; }
+  .sharc h1 em,.sharc h2 em { font-style: normal; color: var(--accent); }
+  .sharc-intro { font-size: clamp(1.1rem,1.6vw,1.25rem); line-height: 1.7; color: #bfd0e2; max-width: 680px; margin: 1.65rem 0 0; }
+  .sharc-actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 2.2rem; }
+  .sharc-visual { position: relative; overflow: hidden; padding: 1.6rem; border: 1px solid rgba(245,158,11,.25); border-radius: 1.5rem; background: radial-gradient(circle at 60% 45%,rgba(245,158,11,.1),transparent 60%),linear-gradient(135deg,#141c2c,#0b101a); box-shadow: 0 24px 80px rgba(0,0,0,.25); min-height: 410px; display: flex; flex-direction: column; justify-content: space-between; }
+  .sharc-visual:after { content: ""; position: absolute; inset: 0; background: repeating-linear-gradient(0deg,transparent 0 27px,rgba(245,158,11,.025) 28px 29px); pointer-events: none; }
+  .sharc-visual-top,.sharc-visual-foot { display:flex; justify-content:space-between; gap:1rem; font-size:.63rem; letter-spacing:.09em; font-weight:800; color:#8d9cb0; }
+  .sharc-visual-pulse { color: var(--accent); }
+  .sharc-visual-core { display: flex; flex-direction: column; gap:1rem; margin:3rem 0 3.5rem; }
+  .sharc-core-kicker { color: var(--accent); font-size:.71rem; letter-spacing:.14em; font-weight:800; }
+  .sharc-visual-core strong { font-size: clamp(1.65rem,3vw,2.6rem); letter-spacing:-.045em; line-height:1.15; }
+  .sharc-core-line { display:block; width:70px; height:3px; background:var(--accent); }
+  .sharc-orbit { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:.4rem; align-items:center; }
+  .sharc-orbit-item { display:flex; flex-direction:column; gap:.1rem; border-top:1px solid rgba(245,158,11,.25); padding-top:.6rem; }
+  .sharc-orbit-item span { color:var(--accent); font-size:.7rem; font-weight:800; }
+  .sharc-orbit-item strong { font-size:.86rem; } .sharc-orbit-item small { color:#94a3b8; font-size:.7rem; }
+  .sharc-orbit-arrow { color:var(--accent); } .sharc-visual-foot { margin-top:2rem; font-size:.56rem; }
+  .sharc-manifesto,.sharc-evaluation,.sharc-status { display:grid; grid-template-columns:1fr 2fr; gap:3rem; padding:4.5rem 0; border-top:1px solid var(--border); }
+  .sharc-manifesto h2,.sharc-section-head h2,.sharc-evaluation h2,.sharc-status h2,.sharc-cta h2 { font-size:clamp(2.15rem,4.4vw,4rem); line-height:1.1; letter-spacing:-.055em; margin:0 0 1.5rem; }
+  .sharc-manifesto p,.sharc-evaluation p,.sharc-knowledge p,.sharc-status p { font-size:1.08rem; line-height:1.76; max-width:760px; color:#aebed0; }
+  .sharc-method,.sharc-knowledge,.sharc-stack { padding:4.5rem 0; border-top:1px solid var(--border); }
+  .sharc-section-head { max-width:850px; margin-bottom:2.4rem; }
+  .sharc-pillar-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:1rem; }
+  .sharc-pillar { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:1.25rem; padding:1.6rem; min-height:345px; background:linear-gradient(150deg,rgba(255,255,255,.04),rgba(255,255,255,.009)); }
+  .sharc-pillar-top { display:flex; justify-content:space-between; gap:1rem; padding-bottom:2.8rem; font-weight:800; color:var(--accent); }
+  .sharc-pillar-top span { font-size:2.3rem; line-height:1; letter-spacing:-.07em; }
+  .sharc-pillar-top small { color:#9daec3; letter-spacing:.035em; font-size:.7rem; align-self:center; }
+  .sharc-pillar h3 { font-size:1.5rem; letter-spacing:-.04em; margin-bottom:1rem; }
+  .sharc-pillar p { color:#c0cddd; font-size:1rem; line-height:1.68; }
+  .sharc-pillar-detail { border-top:1px solid var(--border); padding-top:1rem; margin-top:auto; color:#9daec3; font-size:.89rem; line-height:1.6; }
+  .sharc-evaluation { grid-template-columns:minmax(0,1.2fr) minmax(0,.9fr); gap:3.5rem; }
+  .sharc-evaluation blockquote { margin:2rem 0; padding:1rem 0 1rem 1.3rem; border-left:3px solid var(--accent); font-size:1.16rem; font-weight:700; line-height:1.55; }
+  .sharc-evaluation strong { color:var(--text); }
+  .sharc-criteria { display:grid; align-content:center; gap:.75rem; }
+  .sharc-criteria article { display:flex; align-items:start; gap:1.1rem; border:1px solid var(--border); border-radius:.9rem; padding:1.2rem; background:rgba(255,255,255,.02); }
+  .sharc-criterion-symbol { color:var(--accent); font-size:1.5rem; line-height:1; }
+  .sharc-criteria h3 { margin:0 0 .35rem; font-size:1.08rem; letter-spacing:-.01em; }
+  .sharc-criteria p { margin:0; font-size:.9rem; line-height:1.55; }
+  .sharc-network { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:1rem; padding:2.5rem 1rem; border:1px solid rgba(245,158,11,.2); border-radius:1.2rem; background:linear-gradient(120deg,rgba(245,158,11,.055),transparent 70%); }
+  .sharc-network span { padding:.9rem 1.2rem; border:1px solid rgba(245,158,11,.25); border-radius:10rem; color:var(--text); font-size:.94rem; font-weight:800; background:#141c2b; }
+  .sharc-network b { color:var(--accent); font-size:1.25rem; font-weight:400; }
+  .sharc-stack-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:.85rem; }
+  .sharc-stack-grid article { border:1px solid var(--border); padding:1.3rem; border-radius:.85rem; }
+  .sharc-stack-grid h3 { color:var(--text); margin-bottom:.7rem; font-size:1.05rem; letter-spacing:-.02em; line-height:1.25; }
+  .sharc-stack-grid p { font-size:.91rem; line-height:1.55; margin-bottom:0; }
+  .sharc-status { grid-template-columns:1.25fr .75fr; gap:3rem; align-items:center; }
+  .sharc-next { padding:2rem; border:1px solid rgba(245,158,11,.35); background:rgba(245,158,11,.05); border-radius:1.2rem; }
+  .sharc-next span { color:var(--accent); font-size:.73rem; font-weight:800; letter-spacing:.14em; }
+  .sharc-next strong { display:block; margin:1rem 0; font-size:1.6rem; line-height:1.25; letter-spacing:-.04em; }
+  .sharc-cta { margin:2rem 0 3rem; border-top:1px solid var(--border); padding:5rem 0 2rem; }
+  .sharc-cta h2 { max-width:980px; }
+  @media(max-width:900px) {
+    .sharc-hero,.sharc-manifesto,.sharc-evaluation,.sharc-status { grid-template-columns:1fr; gap:2rem; }
+    .sharc-visual { min-height:360px; }
+    .sharc-pillar-grid { grid-template-columns:1fr; }
+    .sharc-pillar { min-height:auto; }
+    .sharc-pillar-top { padding-bottom:1.6rem; }
+    .sharc-stack-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .sharc-manifesto,.sharc-method,.sharc-evaluation,.sharc-knowledge,.sharc-stack,.sharc-status { padding:3.2rem 0; }
+  }
+  @media(max-width:600px) {
+    .sharc-hero { padding:3rem 0 4rem; }
+    .sharc h1 { font-size:clamp(2.5rem,11vw,4rem); }
+    .sharc-visual { min-height:325px; padding:1.1rem; }
+    .sharc-visual-foot { flex-direction:column; gap:.25rem; }
+    .sharc-orbit { gap:.15rem; }
+    .sharc-orbit-item strong { font-size:.68rem; }
+    .sharc-orbit-item small { font-size:.64rem; }
+    .sharc-stack-grid { grid-template-columns:1fr; }
+    .sharc-network { gap:.5rem; }
+    .sharc-network span { font-size:.76rem; padding:.65rem .9rem; }
+    .sharc-network b { font-size:1rem; }
+    .sharc-next { padding:1.3rem; }
+  }
+</style>
