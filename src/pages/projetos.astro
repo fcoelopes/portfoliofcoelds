@@ -6,6 +6,23 @@ import { getCollection } from "astro:content";
 
 const projects = [
   {
+    category: "AI Venture Intelligence",
+    status: "Em desenvolvimento",
+    progress: null,
+    title: "Sharc Tank",
+    objetivo:
+      "Laboratório pessoal multiagente para descobrir oportunidades de negócios em qualquer mercado, confrontar evidências e qualificar decisões de investimento.",
+    problema:
+      "Oportunidades passam despercebidas e investimentos podem ser escolhidos sem considerar riscos, alternativas e custo de oportunidade.",
+    aplicacao:
+      "Pesquisa de oportunidades, due diligence, avaliação financeira, comitê de investimentos e experimentação empreendedora.",
+    stack: ["Deep Agents", "LangChain", "LangGraph", "Knowledge Graph", "Corporate Finance"],
+    links: [
+      { label: "Conhecer o pitch", href: "/sharc-tank" },
+      { label: "Ler a introdução do projeto", href: "/blog/projeto-sharc-tank" },
+    ],
+  },
+  {
     category: "Maintenance Decision Analytics",
     status: "Em desenvolvimento",
     progress: 75,
@@ -174,7 +191,7 @@ const circumference = 2 * Math.PI * 24;
   <head>
     <BaseHead
       title="Projetos | Edson Lopes"
-      description="Projetos técnicos em confiabilidade, análise RAM, PHM e gestão industrial."
+      description="Projetos em confiabilidade, software, agentes inteligentes e inteligência de oportunidades de negócios."
     />
   </head>
 
@@ -183,18 +200,18 @@ const circumference = 2 * Math.PI * 24;
 
     <main>
       <section class="page-hero">
-        <p class="kicker">Portfólio técnico</p>
+        <p class="kicker">Portfólio de projetos</p>
         <h1>Projetos</h1>
         <p>
-          Ferramentas e estudos em confiabilidade, análise de dados e software
-          aplicado à manutenção industrial.
+          Projetos em engenharia, dados, inteligência artificial e negócios —
+          da confiabilidade industrial à descoberta de oportunidades.
         </p>
       </section>
 
       <section class="pdc-list">
         {
           projects.map((p) => {
-            const offset = circumference * (1 - p.progress / 100);
+            const offset = p.progress === null ? 0 : circumference * (1 - p.progress / 100);
             return (
               <article class="pdc">
                 <div class="pdc-header">
@@ -207,7 +224,8 @@ const circumference = 2 * Math.PI * 24;
                     </span>
                   </div>
 
-                  <div class="pdc-progress">
+                  {p.progress !== null && (
+                <div class="pdc-progress">
                     <svg
                       class="pdc-ring"
                       viewBox="0 0 60 60"
@@ -236,6 +254,7 @@ const circumference = 2 * Math.PI * 24;
                     </svg>
                     <span class="pdc-pct">{p.progress}%</span>
                   </div>
+                )}
                 </div>
 
                 <div class="pdc-body">
@@ -249,7 +268,7 @@ const circumference = 2 * Math.PI * 24;
                     <dd>{p.problema}</dd>
                   </div>
                   <div>
-                    <dt>Aplicação industrial</dt>
+                    <dt>Aplicação</dt>
                     <dd>{p.aplicacao}</dd>
                   </div>
                   <div>
