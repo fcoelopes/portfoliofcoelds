@@ -4,9 +4,7 @@ import BlogPost from "../../layouts/BlogPost.astro";
 import { isListedArticle } from "../../lib/publications";
 
 export async function getStaticPaths() {
-  const posts = (await getCollection("blog")).filter(
-    (post) => !post.data.draft,
-  );
+  const posts = (await getCollection("blog")).filter(isListedArticle);
 
   return posts.map((post) => ({
     params: { slug: post.id.replace(/\.mdx?$/, "") },
