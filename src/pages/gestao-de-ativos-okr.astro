@@ -1,0 +1,90 @@
+---
+import BaseHead from "../components/BaseHead.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import progress from "../data/gestao-ativos-okr.json";
+const dates = {start: new Date(progress.startedAt+"T12:00:00Z"), end: new Date(new Date(progress.startedAt+"T12:00:00Z").getTime()+progress.durationDays*86400000)};
+const mean = progress.expertReviews.length ? progress.expertReviews.reduce((a, b) => a + b.score, 0) / progress.expertReviews.length : null;
+const sessionPct = Math.min(100, progress.sessionsCompleted / progress.sessionsTarget * 100);
+const assessmentPct = progress.assessmentScore === null ? 0 : Math.min(100, progress.assessmentScore / progress.assessmentTarget * 100);
+const reviewPct = Math.min(100, progress.expertReviews.length / progress.expertReviewTarget * 100);
+const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",month:"short",year:"numeric"});
+---
+<html lang="pt-BR">
+  <head>
+    <BaseHead title="Jornada em Gestão de Ativos — Painel OKR" description="Progresso público do desafio de 90 dias para desenvolver competências em Gestão de Ativos." />
+    <style>
+      .journey{width:min(1080px,calc(100% - 2rem));margin:0 auto;padding:4rem 0 6rem;color:var(--text)}
+      .eyebrow{text-transform:uppercase;letter-spacing:.16em;color:var(--accent);font-size:.76rem;font-weight:800}
+      h1{font-size:clamp(2.3rem,6vw,4.5rem);line-height:1.07;letter-spacing:-.045em;margin:.6rem 0 1rem}
+      h2{margin:2.5rem 0 1rem;font-size:1.55rem}
+      .lead{max-width:820px;font-size:1.14rem;line-height:1.75;color:var(--muted)}
+      .meta{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.5rem 0 2rem}
+      .chip{border:1px solid var(--border);border-radius:99px;padding:.45rem .8rem;color:var(--muted);font-size:.85rem}
+      .objective,.tile,.update{border:1px solid var(--border);border-radius:1rem;background:var(--surface-2,rgba(255,255,255,.035));padding:1.5rem}
+      .objective{border-left:4px solid var(--accent)}
+      .objective p{font-size:1.25rem;font-weight:650;line-height:1.55;margin:.5rem 0}
+      .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.3rem 0}
+      .klabel{font-size:.76rem;letter-spacing:.08em;color:var(--accent);text-transform:uppercase;font-weight:800}
+      .value{font-size:2.3rem;font-weight:800;letter-spacing:-.045em;margin:.75rem 0 .15rem}
+      .measure{font-size:.88rem;color:var(--muted);line-height:1.6;min-height:4rem}
+      progress{width:100%;height:11px;accent-color:var(--accent);margin:1.1rem 0 .5rem}
+      .detail{font-size:.82rem;color:var(--muted)}
+      .updates{display:grid;gap:.85rem}
+      .update time{font-size:.8rem;color:var(--accent)}
+      .update h3{margin:.4rem 0 .3rem}
+      .update p{margin:.2rem 0;color:var(--muted)}
+      a{color:var(--accent)}
+      .notice{color:var(--muted);font-size:.9rem;line-height:1.6;margin-top:1.6rem}
+      @media(max-width:800px){.grid{grid-template-columns:1fr}.journey{padding-top:2rem}.measure{min-height:0}}
+    </style>
+  </head>
+  <body>
+    <Header />
+    <main class="journey">
+      <div class="eyebrow">Gestão de Ativos · OKR público</div>
+      <h1>90 dias para evoluir da técnica à estratégia</h1>
+      <p class="lead">Uma jornada documentada para aprofundar decisões de Gestão de Ativos que conectam risco, confiabilidade, custos e valor. Acompanhe três resultados-chave e as evidências reais de progresso.</p>
+      <div class="meta">
+        <span class="chip">Início: {fmt(dates.start)}</span>
+        <span class="chip">Fim: {fmt(dates.end)}</span>
+        <span class="chip">Atualizado em: {fmt(new Date(progress.updatedAt+"T12:00:00Z"))}</span>
+      </div>
+      <section class="objective" aria-label="Objetivo">
+        <div class="klabel">Objetivo</div>
+        <p>Elevar minha atuação em Gestão de Ativos a um nível de excelência, transformando conhecimento técnico em decisões estratégicas que geram valor.</p>
+      </section>
+      <h2>Painel de resultados-chave</h2>
+      <section class="grid" aria-label="Progresso dos KRs">
+        <article class="tile">
+          <div class="klabel">KR1 · Moonshot</div>
+          <div class="value">{mean === null ? "—" : mean.toFixed(1).replace(".",",")}<small style="font-size:.95rem"> / 5</small></div>
+          <p class="measure">Nota média mínima de 4,5/5 atribuída por pelo menos 3 especialistas a um estudo de caso integrado.</p>
+          <progress value={reviewPct} max="100" aria-label="Percentual de avaliações externas concluídas"></progress>
+          <div class="detail">{progress.expertReviews.length} / {progress.expertReviewTarget} avaliações concluídas · {mean===null?"Sem nota aferida":"Média "+mean.toFixed(2).replace(".",",")}</div>
+        </article>
+        <article class="tile">
+          <div class="klabel">KR2 · Aprendizagem</div>
+          <div class="value">{progress.assessmentScore === null ? "—" : progress.assessmentScore+"%"}</div>
+          <p class="measure">Alcançar pelo menos 85% de acerto em avaliação prática de Gestão de Ativos.</p>
+          <progress value={assessmentPct} max="100" aria-label="Progresso até a nota-alvo da avaliação"></progress>
+          <div class="detail">Meta: {progress.assessmentTarget}% · {progress.assessmentScore===null?"Avaliação não realizada":"Resultado registrado"}</div>
+        </article>
+        <article class="tile">
+          <div class="klabel">KR3 · Entrada</div>
+          <div class="value">{progress.sessionsCompleted}<small style="font-size:.95rem"> / {progress.sessionsTarget}</small></div>
+          <p class="measure">Realizar 24 sessões deliberadas de 60 minutos com exercícios e registro de aprendizados.</p>
+          <progress value={sessionPct} max="100" aria-label="Sessões de estudo concluídas"></progress>
+          <div class="detail">{Math.round(sessionPct)}% da meta de sessões</div>
+        </article>
+      </section>
+      <p class="notice">Os dados são públicos e versionados no repositório do site. Valor “—” significa ainda não aferido, não nota zero. A barra do KR1 mede avaliações recebidas; a conquista exige também média mínima de 4,5/5.</p>
+      <h2>Diário de evolução</h2>
+      <section class="updates">
+        {progress.updates.map(entry => <article class="update"><time datetime={entry.date}>{fmt(new Date(entry.date+"T12:00:00Z"))}</time><h3>{entry.title}</h3><p>{entry.description}</p></article>)}
+      </section>
+      <p style="margin-top:2rem"><a href="/blog/jornada-gestao-de-ativos-okr/">Ler o post da jornada e a metodologia dos KRs</a></p>
+    </main>
+    <Footer />
+  </body>
+</html>
