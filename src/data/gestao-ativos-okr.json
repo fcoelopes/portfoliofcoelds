@@ -1,0 +1,19 @@
+{
+  "startedAt": "2026-11-01",
+  "durationDays": 90,
+  "updatedAt": "2026-11-01",
+  "sessionsCompleted": 0,
+  "sessionsTarget": 24,
+  "assessmentScore": null,
+  "assessmentTarget": 85,
+  "expertReviews": [],
+  "expertReviewTarget": 3,
+  "expertAverageTarget": 4.5,
+  "updates": [
+    {
+      "date": "2026-11-01",
+      "title": "Início da jornada",
+      "description": "Objetivo e três KRs definidos. Progresso ainda não aferido; aguardando as primeiras evidências."
+    }
+  ]
+}
