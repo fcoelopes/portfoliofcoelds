@@ -21,7 +21,7 @@ const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",m
       .lead{max-width:820px;font-size:1.14rem;line-height:1.75;color:var(--muted)}
       .meta{display:flex;gap:.65rem;flex-wrap:wrap;margin:1.5rem 0 2rem}
       .chip{border:1px solid var(--border);border-radius:99px;padding:.45rem .8rem;color:var(--muted);font-size:.85rem}
-      .objective,.tile,.update{border:1px solid var(--border);border-radius:1rem;background:var(--surface-2,rgba(255,255,255,.035));padding:1.5rem}
+      .countdown{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.3rem 0 2rem}\n      .countdown-card{border:1px solid var(--border);border-radius:1rem;background:var(--surface-2,rgba(255,255,255,.035));padding:1.2rem;text-align:center}\n      .countdown-card strong{display:block;font-size:clamp(1.8rem,4vw,2.7rem);letter-spacing:-.04em;color:var(--text)}\n      .countdown-card span{font-size:.84rem;color:var(--muted)}\n      .countdown-track{grid-column:1/-1;width:100%;height:10px;border-radius:99px;background:rgba(255,255,255,.08);overflow:hidden}\n      .countdown-track span{display:block;height:100%;width:0;background:var(--accent);border-radius:inherit}\n      .objective,.tile,.update{border:1px solid var(--border);border-radius:1rem;background:var(--surface-2,rgba(255,255,255,.035));padding:1.5rem}
       .objective{border-left:4px solid var(--accent)}
       .objective p{font-size:1.25rem;font-weight:650;line-height:1.55;margin:.5rem 0}
       .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin:1.3rem 0}
@@ -36,7 +36,7 @@ const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",m
       .update p{margin:.2rem 0;color:var(--muted)}
       a{color:var(--accent)}
       .notice{color:var(--muted);font-size:.9rem;line-height:1.6;margin-top:1.6rem}
-      @media(max-width:800px){.grid{grid-template-columns:1fr}.journey{padding-top:2rem}.measure{min-height:0}}
+      @media(max-width:800px){.grid{grid-template-columns:1fr}.countdown{gap:.5rem}.countdown-card{padding:.8rem .4rem}.journey{padding-top:2rem}.measure{min-height:0}}
     </style>
   </head>
   <body>
@@ -50,6 +50,34 @@ const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",m
         <span class="chip">Fim: {fmt(dates.end)}</span>
         <span class="chip">Atualizado em: {fmt(new Date(progress.updatedAt+"T12:00:00Z"))}</span>
       </div>
+      <section aria-label="Contador de dias da jornada" class="countdown" data-start={progress.startedAt} data-days={progress.durationDays}>
+        <div class="countdown-card"><strong id="days-elapsed">—</strong><span>Dias decorridos</span></div>
+        <div class="countdown-card"><strong id="days-remaining">—</strong><span>Dias restantes</span></div>
+        <div class="countdown-card"><strong id="days-total">{progress.durationDays}</strong><span>Dias no ciclo</span></div>
+        <div class="countdown-track" role="progressbar" aria-label="Progresso temporal do ciclo de 90 dias" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="days-fill"></span></div>
+      </section>
+      <script is:inline>
+        (() => {
+          const root = document.querySelector(".countdown");
+          if (!root) return;
+          const start = root.dataset.start;
+          const length = Number(root.dataset.days);
+          const dayNumber = value => Math.floor(Date.parse(value + "T00:00:00Z") / 86400000);
+          const started = dayNumber(start);
+          const update = () => {
+            const todayBrazil = new Intl.DateTimeFormat("en-CA", { timeZone: "America/Fortaleza", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+            const elapsed = Math.max(0, Math.min(length, dayNumber(todayBrazil) - started));
+            const remaining = length - elapsed;
+            const percent = Math.round((elapsed / length) * 100);
+            document.getElementById("days-elapsed").textContent = String(elapsed);
+            document.getElementById("days-remaining").textContent = String(remaining);
+            document.getElementById("days-fill").style.width = percent + "%";
+            root.querySelector('[role="progressbar"]').setAttribute("aria-valuenow", String(percent));
+          };
+          update();
+          setInterval(update, 60000);
+        })();
+      </script>
       <section class="objective" aria-label="Objetivo">
         <div class="klabel">Objetivo</div>
         <p>Elevar minha atuação em Gestão de Ativos a um nível de excelência, transformando conhecimento técnico em decisões estratégicas que geram valor.</p>
