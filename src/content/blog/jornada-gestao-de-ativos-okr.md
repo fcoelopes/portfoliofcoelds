@@ -1,6 +1,6 @@
 ---
 title: "Minha jornada de 90 dias rumo à Gestão de Ativos"
-description: "Um OKR público para desenvolver competências em Gestão de Ativos: um moonshot, uma avaliação prática e uma rotina de estudo com progresso verificável."
+description: "Um OKR público para desenvolver competências em Gestão de Ativos: um moonshot, o exame CAMA e uma rotina de estudo com progresso verificável."
 pubDate: 2026-11-01
 type: "note"
 category: "Gestão de Ativos"
@@ -26,11 +26,13 @@ Obter nota média **mínima de 4,5/5 de pelo menos três avaliadores experientes
 
 **Evidência:** critérios de avaliação definidos antes da defesa, registros das avaliações e revisão crítica das recomendações.
 
-### KR2 — Resultado de aprendizagem
+### KR2 — Resultado de saída: exame CAMA
 
-Alcançar **pelo menos 85% de acerto em avaliação prática** envolvendo a família ISO 55000, gestão de riscos, estratégia de manutenção, custo do ciclo de vida, CAPEX/OPEX e indicadores de desempenho.
+**Ser aprovado no exame internacional CAMA (Certified Asset Management Assessor)** até o encerramento do ciclo de 90 dias, demonstrando conhecimento dos princípios de Gestão de Ativos e da avaliação de sistemas de gestão conforme a ISO 55001.
 
-**Evidência:** avaliação com rubrica explícita, problemas inéditos e análise dos erros.
+**Evidência:** resultado oficial de aprovação no exame administrado pelo WPiAM. O exame e a certificação não são equivalentes: a certificação também depende da avaliação e aprovação do perfil profissional e da comprovação de experiência aplicável.
+
+**Referência:** [certificação CAMA — WPiAM](https://www.wpiam.com/pt/certificacao-cama/). A inscrição é paga; a meta depende de disponibilidade e agendamento do exame.
 
 ### KR3 — Resultado de entrada
 
