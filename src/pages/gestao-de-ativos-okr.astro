@@ -6,7 +6,7 @@ import progress from "../data/gestao-ativos-okr.json";
 const dates = {start: new Date(progress.startedAt+"T12:00:00Z"), end: new Date(new Date(progress.startedAt+"T12:00:00Z").getTime()+progress.durationDays*86400000)};
 const mean = progress.expertReviews.length ? progress.expertReviews.reduce((a, b) => a + b.score, 0) / progress.expertReviews.length : null;
 const sessionPct = Math.min(100, progress.sessionsCompleted / progress.sessionsTarget * 100);
-const assessmentPct = progress.assessmentScore === null ? 0 : Math.min(100, progress.assessmentScore / progress.assessmentTarget * 100);
+const camaPct = progress.camaExamStatus === "aprovado" ? 100 : 0;
 const reviewPct = Math.min(100, progress.expertReviews.length / progress.expertReviewTarget * 100);
 const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",month:"short",year:"numeric"});
 ---
@@ -64,11 +64,11 @@ const fmt = (d) => d.toLocaleDateString("pt-BR", {timeZone:"UTC",day:"2-digit",m
           <div class="detail">{progress.expertReviews.length} / {progress.expertReviewTarget} avaliações concluídas · {mean===null?"Sem nota aferida":"Média "+mean.toFixed(2).replace(".",",")}</div>
         </article>
         <article class="tile">
-          <div class="klabel">KR2 · Aprendizagem</div>
-          <div class="value">{progress.assessmentScore === null ? "—" : progress.assessmentScore+"%"}</div>
-          <p class="measure">Alcançar pelo menos 85% de acerto em avaliação prática de Gestão de Ativos.</p>
-          <progress value={assessmentPct} max="100" aria-label="Progresso até a nota-alvo da avaliação"></progress>
-          <div class="detail">Meta: {progress.assessmentTarget}% · {progress.assessmentScore===null?"Avaliação não realizada":"Resultado registrado"}</div>
+          <div class="klabel">KR2 · Exame CAMA</div>
+          <div class="value" style="font-size:1.55rem">{progress.camaExamStatus === "aprovado" ? "Aprovado" : progress.camaExamStatus === "reprovado" ? "Não aprovado" : progress.camaExamStatus === "agendado" ? "Agendado" : "Não realizado"}</div>
+          <p class="measure">Ser aprovado no exame internacional Certified Asset Management Assessor (CAMA) administrado pelo WPiAM.</p>
+          <progress value={camaPct} max="100" aria-label="Conquista de aprovação no exame CAMA"></progress>
+          <div class="detail">Meta: aprovação oficial · {progress.camaExamDate ? "Exame: "+progress.camaExamDate : "Data não definida"} · Certificação requer validação adicional de experiência</div>
         </article>
         <article class="tile">
           <div class="klabel">KR3 · Entrada</div>

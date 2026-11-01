@@ -4,12 +4,17 @@
   "updatedAt": "2026-11-01",
   "sessionsCompleted": 0,
   "sessionsTarget": 24,
-  "assessmentScore": null,
-  "assessmentTarget": 85,
+  "camaExamStatus": "nao_realizado",
+  "camaExamDate": null,
   "expertReviews": [],
   "expertReviewTarget": 3,
   "expertAverageTarget": 4.5,
   "updates": [
+    {
+      "date": "2026-11-01",
+      "title": "KR2 revisado: exame CAMA",
+      "description": "A avaliação prática genérica foi substituída por aprovação oficial no exame CAMA. A certificação depende também da validação de experiência profissional."
+    },
     {
       "date": "2026-11-01",
       "title": "Início da jornada",
